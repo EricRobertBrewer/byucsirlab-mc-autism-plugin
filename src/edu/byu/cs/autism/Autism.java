@@ -1,5 +1,7 @@
 package edu.byu.cs.autism;
 
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -23,9 +25,14 @@ public class Autism extends JavaPlugin {
                 return false;
             }
             final Player player = (Player) sender;
-            player.teleport(new Location(player.getWorld(), 0.0, 56.5, 0.0));
+            final Location originFacingNorth = Bukkit.getWorld("autism").getSpawnLocation();
+            originFacingNorth.setYaw(180.0f);
+            player.teleport(originFacingNorth);
+            if (!player.isOp()) {
+                player.setGameMode(GameMode.ADVENTURE);
+            }
             return true;
         }
-        return false;
+        return super.onCommand(sender, command, label, args);
     }
 }
