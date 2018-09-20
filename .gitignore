@@ -1,2 +1,4 @@
+*.jar
+*.class
 out/
 .idea/workspace.xml
