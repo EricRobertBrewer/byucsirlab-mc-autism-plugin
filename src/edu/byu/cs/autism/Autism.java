@@ -16,6 +16,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Autism extends JavaPlugin implements Listener {
 
+    //test
+
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
