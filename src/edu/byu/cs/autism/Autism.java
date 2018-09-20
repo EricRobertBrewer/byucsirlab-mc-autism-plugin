@@ -31,7 +31,7 @@ public class Autism extends JavaPlugin implements Listener {
                 return false;
             }
             final Player player = (Player) sender;
-            final Location originFacingNorth = Bukkit.getWorld("autism").getSpawnLocation();
+            final Location originFacingNorth = Bukkit.getWorld(WorldNames.AUTISM).getSpawnLocation();
             originFacingNorth.setYaw(180.0f);
             player.teleport(originFacingNorth);
             if (!player.isOp()) {
