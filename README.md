@@ -11,3 +11,7 @@ Add it as a library to the project.
 To do this in IntelliJ:
 
 `File` -> `Project Structure` -> `Libraries` -> *+* -> `Java` -> Select the `.jar` file.
+
+## Run
+
+To test changes, you can download [the latest server](https://drive.google.com/file/d/1wjeAv2i-atwKnjt5EsTkbl2AHqK3hYle/view?usp=sharing).
