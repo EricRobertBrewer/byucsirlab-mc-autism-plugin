@@ -40,6 +40,10 @@ public class Autism extends JavaPlugin implements Listener {
             }
             return true;
         }
+        if ("prompt".equalsIgnoreCase(command.getName())) {
+            getServer().broadcastMessage(Prompt.getRandomPrompt());
+            return true;
+        }
         return super.onCommand(sender, command, label, args);
     }
 
@@ -49,4 +53,5 @@ public class Autism extends JavaPlugin implements Listener {
         PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a( "{\"text\":\"Welcome!\"}"));
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetPlayOutTitle);
     }
+
 }
