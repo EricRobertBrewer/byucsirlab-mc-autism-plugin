@@ -1,23 +1,25 @@
 package edu.byu.cs.autism;
 
-import net.minecraft.server.v1_12_R1.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_12_R1.PacketPlayOutTitle;
+import net.minecraft.server.v1_13_R2.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.minecraft.server.v1_13_R2.IChatBaseComponent.ChatSerializer;
+
 public class Autism extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        getServer().getPluginManager().registerEvents(this, this);
     }
 
     @Override
