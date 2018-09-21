@@ -12,6 +12,24 @@ To do this in IntelliJ:
 
 `File` -> `Project Structure` -> `Libraries` -> *+* -> `Java` -> Select the `.jar` file.
 
+## Build JAR
+
+We need to build this plugin's JAR file into order to get its functionality into Minecraft.
+
+In IntelliJ:
+
+`File` -> `Project Structure` -> `Artifacts` -> *+* -> `JAR`>>`From module with dependencies` -> (_select the `Autism` module if it isn't selected_) -> OK` -> `Add Copy of` (a *+* with a drop-down arrow) -> `File` -> navigate to `plugin.yml`
+
 ## Run
 
 To test changes, you can download [the latest server](https://drive.google.com/file/d/1wjeAv2i-atwKnjt5EsTkbl2AHqK3hYle/view?usp=sharing).
+
+Copy the build artifact (`Autism.jar`) from the step above to `<server_folder>/plugins/`.
+
+Start the server with `.\start.bat` from the command line (`cmd.exe`).
+
+You can join your locally running server in Minecraft by:
+
+Multiplayer -> Add Server -> Server Name: _AnythingYouWant_ -> Server IP: `localhost` -> Done -> Join Server
+
+Your changes to `Autism` should be reflected in your local copy of the server.
