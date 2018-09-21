@@ -9,3 +9,5 @@ commands:
     description: Create a maze in the main world.
   prompt:
     description: Display a random prompt question.
+  gameWon:
+    description: Records that two players won a game and provides their reward

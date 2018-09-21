@@ -51,7 +51,6 @@ public class Autism extends JavaPlugin implements Listener {
         }
 
         //todo: settle on data structure to store tuples
-        // TODO: Add `wongame` as a command to `plugin.yml`.
         if("wonGame".equalsIgnoreCase(command.getName())){
             //awards money to players based on which game they just won, what games they've won in the past, and who they played with
             //takes three parameters, two players and the game
