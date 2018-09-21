@@ -7,3 +7,5 @@ commands:
     description: Return to the global spawn point.
   maze:
     description: Create a maze in the main world.
+  prompt:
+    description: Display a random prompt question.
