@@ -1,5 +1,6 @@
 package edu.byu.cs.autism;
 
+import edu.byu.cs.autism.maze.Maze;
 import net.minecraft.server.v1_12_R1.IChatBaseComponent.ChatSerializer;
 import net.minecraft.server.v1_12_R1.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
@@ -38,6 +39,8 @@ public class Autism extends JavaPlugin implements Listener {
                 player.setGameMode(GameMode.ADVENTURE);
             }
             return true;
+        } else if ("maze".equalsIgnoreCase(command.getName())) {
+            Maze.handleCommand(sender, command, label, args);
         }
         return super.onCommand(sender, command, label, args);
     }
