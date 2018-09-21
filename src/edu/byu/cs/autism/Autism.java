@@ -47,6 +47,7 @@ public class Autism extends JavaPlugin implements Listener {
             return true;
         }
 
+        //todo: settle on data structure to store tuples
         if("wonGame".equalsIgnoreCase(command.getName()){
             //awards money to players based on which game they just won, what games they've won in the past, and who they played with
             //takes three parameters, two players and the game
@@ -142,6 +143,7 @@ public class Autism extends JavaPlugin implements Listener {
         }
 
     }
+
 
     private int newPartnertBonus(string game, string p1, string p2){
 
