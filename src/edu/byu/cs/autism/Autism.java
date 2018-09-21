@@ -46,6 +46,31 @@ public class Autism extends JavaPlugin implements Listener {
             getServer().broadcastMessage(Prompt.getRandomPrompt());
             return true;
         }
+
+        if("wonGame".equalsIgnoreCase(command.getName()){
+            //awards money to players based on which game they just won, what games they've won in the past, and who they played with
+            //takes three parameters, two players and the game
+            string game = args[0];
+            string p1 = args [1];
+            string p2 = args [2];
+
+            //calculate points earned
+            int score = baseScore(game) + newPartnertBonus(game,p1, p2) + getContinuedPartnerBonus(p1, p2);
+            p1s = score + firstTimeBonus(game, p1);
+            p2s = score + firstTimeBonus(game, p1);
+
+            //give money
+            Server.dispatch(Server,"eco give " + p1 + " " + p1s);
+            Server.dispatch(Server,"eco give " + p2 + " " + p2s);
+
+            //update tuple
+
+
+
+
+
+        }
+
         return super.onCommand(sender, command, label, args);
     }
 
@@ -54,6 +79,89 @@ public class Autism extends JavaPlugin implements Listener {
         Player player = event.getPlayer();
         PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a( "{\"text\":\"Welcome!\"}"));
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetPlayOutTitle);
+    }
+
+
+    private int getContinuedPartnerBonus(string p1, string p2, string game){
+        //see if players have played this game before
+        boolean newgame = false;
+        if(newgame) {
+            int count = 0;
+            //increase count for each tuple with both players that is found
+
+            //calculate bonus from count
+            switch (count){
+                case 1:
+                    return 5;
+                    break;
+                case 2:
+                    return 10;
+                    break;
+
+            }
+        }
+
+        return 0;
+
+
+    }
+
+    private int baseScore(string game){
+        if(game.equals("lava")){
+
+            return 0;
+        }
+        if(game.equals("T")){
+
+            return  5;
+        }
+        if(game.equals("team")){
+            return 2;
+        }
+
+    }
+
+    private int firstTimeBonus(string game, string player){
+
+        //check if any tuples contain the player and game
+        boolean firstTime = false;
+        if(firstTime){
+            //calculate bonus from game
+            if(game.equals("lava")){
+
+                return 5;
+            }
+            if(game.equals("T")){
+
+                return  10;
+            }
+            if(game.equals("team")){
+                return 7;
+            }
+
+        }
+
+    }
+
+    private int newPartnertBonus(string game, string p1, string p2){
+
+        //check if players have played this game before
+        boolean newppair = false;
+        if(newppair){
+            //calculate bonus from game
+            if(game.equals("lava")){
+
+                return 1;
+            }
+            if(game.equals("T")){
+
+                return  5;
+            }
+            if(game.equals("team")){
+                return 3;
+            }
+        }
+
     }
 
 }
