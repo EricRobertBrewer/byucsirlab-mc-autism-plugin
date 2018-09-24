@@ -3,7 +3,6 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Autism_jar</output-path>
     <root id="archive" name="Autism.jar">
       <element id="module-output" name="Autism" />
-      <element id="extracted-dir" path="$USER_HOME$/AppData/Roaming/.minecraft_spigot_server_autism-1.12.2/spigot-1.12.2.jar" path-in-jar="/" />
       <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
     </root>
   </artifact>
