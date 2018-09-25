@@ -73,23 +73,20 @@ public class Autism extends JavaPlugin implements Listener {
             String p2 = args [2];
 
             //calculate points earned
-            int score = baseScore(game) + newPartnerBonus(game,p1, p2) + getContinuedPartnerBonus(p1, p2, game);
+            int score = baseScore(game) + newPartnerBonus(game, p1, p2) + getContinuedPartnerBonus(p1, p2, game);
             int p1s = score + firstTimeBonus(game, p1);
             int p2s = score + firstTimeBonus(game, p1);
 
             //give money
-            Server.dispatch(Server,"eco give " + p1 + " " + p1s);
-            Server.dispatch(Server,"eco give " + p2 + " " + p2s);
+            getServer().dispatchCommand(getServer().getConsoleSender(),"eco give " + p1 + " " + p1s);
+            getServer().dispatchCommand(getServer().getConsoleSender(),"eco give " + p2 + " " + p2s);
 
             //update tuples, single redundancy
             //left
-           incrementTuple(game, p1, p2);
+            incrementTuple(game, p1, p2);
             //right
             incrementTuple(game, p2, p1);
-
-l
         }
-
         return super.onCommand(sender, command, label, args);
     }
 
