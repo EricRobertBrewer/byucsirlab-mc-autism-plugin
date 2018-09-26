@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="Autism:jar2">
-    <output-path>$PROJECT_DIR$/out/artifacts/Autism_jar2</output-path>
-    <root id="archive" name="Autism.jar">
-      <element id="module-output" name="Autism" />
-      <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
-    </root>
-  </artifact>
-</component>

@@ -16,24 +16,6 @@ To do this in IntelliJ:
 
 We need to build this plugin's JAR file into order to get its functionality into Minecraft.
 
-To specify how to build the JAR in IntelliJ:
-
-`File` > `Project Structure` > `Artifacts` > *`+`* > `JAR`>`From module with dependencies` > (_Select the `Autism` module if it isn't selected_) > OK`
-
-We don't want to include `spigot-1.12.2.jar` in our own JAR, so we need to _remove_ it:
-
-In the `Output Layout` tab, click `Extracted 'spigot.1.12.2.jar/'` > *`-`*
-
-We also need to *include* the `plugin.yml` file:
-
-`Add Copy of` (*`+`* with a drop-down arrow) > `File` > Navigate to `plugin.yml` > `OK`
-
-Save the changes that we've made:
-
-Click `OK`
-
-To actually build the JAR:
-
 `Build` > `Build Artifacts...` > `Autism:jar` > `Build`
 
 ## Run
