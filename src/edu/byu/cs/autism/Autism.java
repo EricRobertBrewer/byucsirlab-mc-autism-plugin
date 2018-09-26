@@ -83,7 +83,7 @@ public class Autism extends JavaPlugin implements Listener {
             getServer().dispatchCommand(getServer().getConsoleSender(),"eco give " + p1 + " " + p1s);
             getServer().dispatchCommand(getServer().getConsoleSender(),"eco give " + p2 + " " + p2s);
 
-            sender.sendMessage("Gave " + p1 + p1s + " coins and " + p2 + p2s +  " coins");
+            sender.sendMessage("Gave " + p1 + " " + p1s + " coins and " + p2 + " " + p2s +  " coins");
 
             //update tuples, single redundancy
             //left
