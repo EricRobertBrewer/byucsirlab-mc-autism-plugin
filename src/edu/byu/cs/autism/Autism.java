@@ -24,6 +24,7 @@ public class Autism extends JavaPlugin implements Listener {
 
     //test
 
+    //todo: load friendhistory from file
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
@@ -38,6 +39,8 @@ public class Autism extends JavaPlugin implements Listener {
 
     }
 
+
+    //todo: save friendhistory to file
     @Override
     public void onDisable() {
     }
@@ -64,7 +67,6 @@ public class Autism extends JavaPlugin implements Listener {
             return true;
         }
 
-        //todo: settle on data structure to store tuples
         if("wonGame".equalsIgnoreCase(command.getName())){
             //awards money to players based on which game they just won, what games they've won in the past, and who they played with
             //takes three parameters, two players and the game
@@ -80,6 +82,8 @@ public class Autism extends JavaPlugin implements Listener {
             //give money
             getServer().dispatchCommand(getServer().getConsoleSender(),"eco give " + p1 + " " + p1s);
             getServer().dispatchCommand(getServer().getConsoleSender(),"eco give " + p2 + " " + p2s);
+
+            sender.sendMessage("Gave " + p1 + p1s + " coins and " + p2 + p2s +  " coins");
 
             //update tuples, single redundancy
             //left
