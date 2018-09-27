@@ -63,6 +63,10 @@ public class Autism extends JavaPlugin implements Listener {
             Maze.handleCommand(sender, command, label, args);
             return true;
         } else if ("prompt".equalsIgnoreCase(command.getName())) {
+            PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a( "{\"text\":\"Welcome to Chat Room\"}"));
+            PacketPlayOutTitle packetPlayOutSubtitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, IChatBaseComponent.ChatSerializer.a( "{\"text\":\"Use one minute to answer the question in chat.\"}"));
+            ((CraftPlayer) sender).getHandle().playerConnection.sendPacket(packetPlayOutTitle);
+            ((CraftPlayer) sender).getHandle().playerConnection.sendPacket(packetPlayOutSubtitle);
             sender.sendMessage(Prompt.getRandomPrompt());
             return true;
         }
