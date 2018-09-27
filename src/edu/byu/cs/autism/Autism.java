@@ -63,7 +63,7 @@ public class Autism extends JavaPlugin implements Listener {
             Maze.handleCommand(sender, command, label, args);
             return true;
         } else if ("prompt".equalsIgnoreCase(command.getName())) {
-            getServer().broadcastMessage(Prompt.getRandomPrompt());
+            sender.sendMessage(Prompt.getRandomPrompt());
             return true;
         }
 
@@ -127,9 +127,8 @@ public class Autism extends JavaPlugin implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a( "{\"text\":\"Welcome!\"}"));
+        player.sendMessage("Briefly introduce yourself yourself to your teammate. Afterwards, move forward to select a game mode.");
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetPlayOutTitle);
-
-
     }
 
 
