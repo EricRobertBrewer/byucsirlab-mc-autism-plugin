@@ -77,7 +77,7 @@ public class Autism extends JavaPlugin implements Listener {
             //calculate points earned
             int score = baseScore(game) + newPartnerBonus(game, p1, p2) + getContinuedPartnerBonus(p1, p2, game);
             int p1s = score + firstTimeBonus(game, p1);
-            int p2s = score + firstTimeBonus(game, p1);
+            int p2s = score + firstTimeBonus(game, p2);
 
             //give money
             getServer().dispatchCommand(getServer().getConsoleSender(),"eco give " + p1 + " " + p1s);
@@ -146,11 +146,11 @@ public class Autism extends JavaPlugin implements Listener {
         if(newgame) {
             int count = 0;
             //increase count for each tuple with both players that is found
-            for (Map.Entry<String,Map<String,Map<String,Integer>>> entry : friendHistory.entrySet()) {
+            for (Map.Entry<String, Map<String, Map<String, Integer>>> entry : friendHistory.entrySet()) {
                 System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-                if (entry.getValue().containsKey(p1)){
+                if (entry.getValue().containsKey(p1)) {
                     Map<String, Integer> playerHistory = entry.getValue().get(p1);
-                    if(playerHistory.containsKey(p2)){
+                    if (playerHistory.containsKey(p2)) {
                         count++;
                     }
 
@@ -158,12 +158,13 @@ public class Autism extends JavaPlugin implements Listener {
             }
 
             //calculate bonus from count
-            switch (count){
+           switch (count){
                 case 1:
                     return 5;
                 case 2:
                     return 10;
             }
+
         }
         return 0;
     }
@@ -178,19 +179,14 @@ public class Autism extends JavaPlugin implements Listener {
         if(game.equals("team")){
             return 2;
         }
+
+
         return -1;
     }
 
     private int firstTimeBonus(String game, String player){
-        //check if any tuples contain the player and game
-        boolean firstTime = false;
-        for (Map.Entry<String,Map<String,Map<String,Integer>>> entry : friendHistory.entrySet()) {
-            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-            if (entry.getValue().containsKey(player)){
-                firstTime = true;
-                break;
-            }
-        }
+        //check if this game contains the player
+        boolean firstTime = !friendHistory.get(game).containsKey(player);
 
         if(firstTime){
             //calculate bonus from game
@@ -203,6 +199,8 @@ public class Autism extends JavaPlugin implements Listener {
             if(game.equals("team")){
                 return 7;
             }
+
+
         }
         return 0;
     }
@@ -216,6 +214,7 @@ public class Autism extends JavaPlugin implements Listener {
         } else newgame = true;
         if(newgame){
             //calculate bonus from game
+
             if(game.equals("lava")){
                 return 1;
             }
@@ -225,6 +224,7 @@ public class Autism extends JavaPlugin implements Listener {
             if(game.equals("team")){
                 return 3;
             }
+
         }
         return 0;
     }
