@@ -45,6 +45,21 @@ public class Autism extends JavaPlugin implements Listener {
     public void onDisable() {
     }
 
+    public void sendPromptToPlayersInLocation(Location location, double radius) {
+        Player[] players = getServer().getOnlinePlayers().toArray(new Player[0]);
+        double radiusSquared = radius*radius;
+        PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a( "{\"text\":\"Welcome to Chat Room\"}"));
+        PacketPlayOutTitle packetPlayOutSubtitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, IChatBaseComponent.ChatSerializer.a( "{\"text\":\"Use one minute to answer the question in chat.\"}"));
+        String prompt = Prompt.getRandomPrompt();
+        for (int i = 0; i < players.length; i++) {
+            if(players[i].getLocation().distanceSquared(location) <= radiusSquared){
+                ((CraftPlayer) players[i]).getHandle().playerConnection.sendPacket(packetPlayOutTitle);
+                ((CraftPlayer) players[i]).getHandle().playerConnection.sendPacket(packetPlayOutSubtitle);
+                players[i].sendMessage(prompt);
+            }
+        }
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if ("spawn".equalsIgnoreCase(command.getName())) {
@@ -63,11 +78,7 @@ public class Autism extends JavaPlugin implements Listener {
             Maze.handleCommand(sender, command, label, args);
             return true;
         } else if ("prompt".equalsIgnoreCase(command.getName())) {
-            PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a( "{\"text\":\"Welcome to Chat Room\"}"));
-            PacketPlayOutTitle packetPlayOutSubtitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, IChatBaseComponent.ChatSerializer.a( "{\"text\":\"Use one minute to answer the question in chat.\"}"));
-            ((CraftPlayer) sender).getHandle().playerConnection.sendPacket(packetPlayOutTitle);
-            ((CraftPlayer) sender).getHandle().playerConnection.sendPacket(packetPlayOutSubtitle);
-            sender.sendMessage(Prompt.getRandomPrompt());
+            sendPromptToPlayersInLocation(new Location(getServer().getWorld("autism"), 0, 56, 0), 10);
             return true;
         }
 
