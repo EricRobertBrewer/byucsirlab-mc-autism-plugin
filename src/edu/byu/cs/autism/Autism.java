@@ -1,5 +1,6 @@
 package edu.byu.cs.autism;
 
+import edu.byu.cs.autism.friend.FriendMiniGameHistory;
 import edu.byu.cs.autism.maze.Maze;
 import net.minecraft.server.v1_12_R1.IChatBaseComponent;
 import net.minecraft.server.v1_12_R1.PacketPlayOutTitle;
@@ -20,29 +21,20 @@ import java.util.Map;
 
 public class Autism extends JavaPlugin implements Listener {
 
-    Map<String,Map<String,Map<String,Integer>>> friendHistory; //game-p1-p2
-
-    //test
+    private final FriendMiniGameHistory friendMiniGameHistory = new FriendMiniGameHistory();
 
     //todo: load friendhistory from file
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
-
-        //initialize map
-        friendHistory = new HashMap<String,Map<String, Map<String,Integer>>>();
-
-        //all games
-         friendHistory.put("T",new HashMap<>());
-         friendHistory.put("team",new HashMap<>());
-         friendHistory.put("lava",new HashMap<>());
-
+        friendMiniGameHistory.load(getDataFolder());
     }
 
 
     //todo: save friendhistory to file
     @Override
     public void onDisable() {
+        friendMiniGameHistory.save(getDataFolder());
     }
 
     public void sendPromptToPlayersInLocation(Location location, double radius) {
@@ -80,183 +72,10 @@ public class Autism extends JavaPlugin implements Listener {
         } else if ("prompt".equalsIgnoreCase(command.getName())) {
             sendPromptToPlayersInLocation(new Location(getServer().getWorld("autism"), 0, 56, 0), 10);
             return true;
-        }
-
-        if("wonGame".equalsIgnoreCase(command.getName())){
-            //awards money to players based on which game they just won, what games they've won in the past, and who they played with
-            //takes three parameters, two players and the game
-            String game = args[0];
-            String p1 = args [1];
-            String p2 = args [2];
-
-            //calculate points earned
-            int score = baseScore(game) + newPartnerBonus(game, p1, p2) + getContinuedPartnerBonus(p1, p2, game);
-            int p1s = score + firstTimeBonus(game, p1);
-            int p2s = score + firstTimeBonus(game, p2);
-
-            //give money
-            getServer().dispatchCommand(getServer().getConsoleSender(),"eco give " + p1 + " " + p1s);
-            getServer().dispatchCommand(getServer().getConsoleSender(),"eco give " + p2 + " " + p2s);
-
-            sender.sendMessage("Gave " + p1 + " " + p1s + " coins and " + p2 + " " + p2s +  " coins");
-
-            //update tuples, single redundancy
-            //left
-            incrementTuple(game, p1, p2);
-            //right
-            incrementTuple(game, p2, p1);
+        } else  if ("wonGame".equalsIgnoreCase(command.getName())) {
+            // TODO Maybe we need to actually raise an event when players finish a mini-game, so other modules can respond to them.
+            friendMiniGameHistory.handleCommand(this, sender, command, label, args);
         }
         return super.onCommand(sender, command, label, args);
-    }
-
-    private void incrementTuple(String game, String p1, String p2){
-        Map<String, Map<String, Integer>> gameHistory = friendHistory.get(game);
-        //check p1 has played game
-        if(gameHistory.containsKey(p1)){
-            //retrieve map
-            Map<String, Integer> playerHistory = gameHistory.get(p1);
-
-            //see if they've played together before
-            if(playerHistory.containsKey(p2)){
-                //increment count
-                Integer count = playerHistory.get(p2);
-                count++;
-                playerHistory.put(p2, count);
-
-            } else {
-                //create new pair
-                playerHistory.put(p2, 1);
-            }
-
-
-        } else {
-            //create new map
-            Map playerHistory = new HashMap();
-            //create new pair
-            playerHistory.put(p2, 1);
-            gameHistory.put(p1,playerHistory);
-        }
-    }
-
-    @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a( "{\"text\":\"Welcome!\"}"));
-        player.sendMessage("Briefly introduce yourself yourself to your teammate. Afterwards, move forward to select a game mode.");
-        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetPlayOutTitle);
-    }
-
-
-
-
-    private int getContinuedPartnerBonus(String p1, String p2, String game){
-        //see if players have played this game before
-        boolean newgame = false;
-        Map<String, Map<String, Integer>> gameHistory = friendHistory.get(game);
-        if(gameHistory.containsKey(p1)){
-            newgame = !gameHistory.get(p1).containsKey(p2);
-        } else newgame = true;
-
-        if(newgame) {
-            int count = 0;
-            //increase count for each tuple with both players that is found
-            for (Map.Entry<String, Map<String, Map<String, Integer>>> entry : friendHistory.entrySet()) {
-                System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-                if (entry.getValue().containsKey(p1)) {
-                    Map<String, Integer> playerHistory = entry.getValue().get(p1);
-                    if (playerHistory.containsKey(p2)) {
-                        count++;
-                    }
-
-                }
-            }
-
-            //calculate bonus from count
-           switch (count){
-                case 1:
-                    return 5;
-                case 2:
-                    return 10;
-            }
-
-        }
-        return 0;
-    }
-
-    private int baseScore(String game){
-        if(game.equals("lava")){
-            return 0;
-        }
-        if(game.equals("T")){
-            return 5;
-        }
-        if(game.equals("team")){
-            return 2;
-        }
-
-
-        return -1;
-    }
-
-    private int firstTimeBonus(String game, String player){
-        //check if this game contains the player
-        boolean firstTime = !friendHistory.get(game).containsKey(player);
-
-        if(firstTime){
-            //calculate bonus from game
-            if(game.equals("lava")){
-                return 5;
-            }
-            if(game.equals("T")){
-                return  10;
-            }
-            if(game.equals("team")){
-                return 7;
-            }
-
-
-        }
-        return 0;
-    }
-
-    private int newPartnerBonus(String game, String p1, String p2){
-        //check if players have played this game before
-        boolean newgame = false;
-        Map<String, Map<String, Integer>> gameHistory = friendHistory.get(game);
-        if(gameHistory.containsKey(p1)){
-            newgame = !gameHistory.get(p1).containsKey(p2);
-        } else newgame = true;
-        if(newgame){
-            //calculate bonus from game
-
-            if(game.equals("lava")){
-                return 1;
-            }
-            if(game.equals("T")){
-                return  5;
-            }
-            if(game.equals("team")){
-                return 3;
-            }
-
-        }
-        return 0;
-    }
-
-    private  int totalGamesPlayer (String p1, String p2){
-        int sum = 0;
-
-        for (Map.Entry<String, Map<String, Map<String, Integer>>> entry : friendHistory.entrySet()) {
-            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-            if (entry.getValue().containsKey(p1)) {
-                Map<String, Integer> playerHistory = entry.getValue().get(p1);
-                if (playerHistory.containsKey(p2)) {
-                    sum += playerHistory.get(p2);
-                }
-
-            }
-        }
-
-        return  sum;
     }
 }
