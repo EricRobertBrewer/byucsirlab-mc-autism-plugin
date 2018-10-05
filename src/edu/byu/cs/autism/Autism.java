@@ -242,4 +242,21 @@ public class Autism extends JavaPlugin implements Listener {
         }
         return 0;
     }
+
+    private  int totalGamesPlayer (String p1, String p2){
+        int sum = 0;
+
+        for (Map.Entry<String, Map<String, Map<String, Integer>>> entry : friendHistory.entrySet()) {
+            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+            if (entry.getValue().containsKey(p1)) {
+                Map<String, Integer> playerHistory = entry.getValue().get(p1);
+                if (playerHistory.containsKey(p2)) {
+                    sum += playerHistory.get(p2);
+                }
+
+            }
+        }
+
+        return  sum;
+    }
 }
