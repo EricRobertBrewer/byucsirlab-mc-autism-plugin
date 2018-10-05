@@ -11,3 +11,7 @@ commands:
     description: Display a random prompt question.
   wonGame:
     description: Records that two players won a game and provides their reward
+  gamesPlayed:
+    description: Reports how many games two players have played
+  dm:
+    description: Send a direct message to a player

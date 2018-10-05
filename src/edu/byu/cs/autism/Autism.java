@@ -75,7 +75,15 @@ public class Autism extends JavaPlugin implements Listener {
         } else  if ("wonGame".equalsIgnoreCase(command.getName())) {
             // TODO Maybe we need to actually raise an event when players finish a mini-game, so other modules can respond to them.
             friendMiniGameHistory.handleCommand(this, sender, command, label, args);
+        } else if ("gamesPlayed".equalsIgnoreCase(command.getName())){
+            int games = friendMiniGameHistory.totalGamesPlayed(args[0], args[1]);
+            this.getServer().dispatchCommand(this.getServer().getConsoleSender(),"They played " + games + " games");
+
+        } else if ("dm".equalsIgnoreCase(command.getName())){
+            //sends message to player , arg[0] is playing, following args are the message
+
         }
+
         return super.onCommand(sender, command, label, args);
     }
 }

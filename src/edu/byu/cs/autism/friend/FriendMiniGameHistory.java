@@ -252,7 +252,7 @@ public class FriendMiniGameHistory {
         return 0;
     }
 
-    private int totalGamesPlayer(String p1, String p2) {
+    public int totalGamesPlayed(String p1, String p2) {
         int sum = 0;
         for (Map.Entry<String, Map<String, Map<String, Integer>>> entry : gamePlayerFriendMap.entrySet()) {
             System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
