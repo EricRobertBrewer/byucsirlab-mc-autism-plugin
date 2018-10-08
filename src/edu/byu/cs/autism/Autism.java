@@ -81,6 +81,12 @@ public class Autism extends JavaPlugin implements Listener {
 
         } else if ("dm".equalsIgnoreCase(command.getName())){
             //sends message to player , arg[0] is playing, following args are the message
+            String cmd = "msg ";
+            for(int i = 0; i < args.length; i++){
+                cmd += args[i];
+            }
+            getServer().dispatchCommand(getServer().getConsoleSender(),cmd );
+
 
         }
 
