@@ -119,8 +119,8 @@ public class FriendMiniGameHistory {
         //awards money to players based on which game they just won, what games they've won in the past, and who they played with
         //takes three parameters, two players and the game
         String game = args[0];
-        String p1 = args [1];
-        String p2 = args [2];
+        String p1 = plugin.getServer().getPlayer(args [1]).getUniqueId().toString();
+        String p2 =plugin.getServer().getPlayer(args [2]).getUniqueId().toString();
 
         //calculate points earned
         int score = baseScore(game) + newPartnerBonus(game, p1, p2) + getContinuedPartnerBonus(p1, p2, game);
