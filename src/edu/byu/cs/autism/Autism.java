@@ -2,6 +2,7 @@ package edu.byu.cs.autism;
 
 import edu.byu.cs.autism.friend.FriendMiniGameHistory;
 import edu.byu.cs.autism.maze.Maze;
+//import net.minecraft.server.v1_12_R1.Entity;
 import net.minecraft.server.v1_12_R1.IChatBaseComponent;
 import net.minecraft.server.v1_12_R1.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
@@ -10,9 +11,11 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -42,7 +45,8 @@ public class Autism extends JavaPlugin implements Listener {
         final Entity entity = e.getRightClicked();
         if (entity instanceof Player) {
             final Player other = (Player) entity;
-            e.getPlayer().sendMessage("I click the player " + other);
+            e.getPlayer().sendMessage("I click the player " + other.getDisplayName());
+            other.sendMessage("You were clicked by " + e.getPlayer().getDisplayName());
         }
     }
     
