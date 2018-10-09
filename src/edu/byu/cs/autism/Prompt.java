@@ -1,5 +1,12 @@
 package edu.byu.cs.autism;
 
+import net.minecraft.server.v1_12_R1.IChatBaseComponent;
+import net.minecraft.server.v1_12_R1.PacketPlayOutTitle;
+import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import java.util.Random;
 
 public class Prompt {
@@ -28,5 +35,20 @@ public class Prompt {
         Random rand = new Random();
         int randIndex = rand.nextInt(prompts.length);
         return prompts[randIndex];
+    }
+
+    public static void sendPromptToPlayersInLocation(JavaPlugin plugin, Location location, double radius) {
+        Player[] players = plugin.getServer().getOnlinePlayers().toArray(new Player[0]);
+        double radiusSquared = radius*radius;
+        PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a( "{\"text\":\"Welcome to Chat Room\"}"));
+        PacketPlayOutTitle packetPlayOutSubtitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, IChatBaseComponent.ChatSerializer.a( "{\"text\":\"Use one minute to answer the question in chat.\"}"));
+        String prompt = Prompt.getRandomPrompt();
+        for (int i = 0; i < players.length; i++) {
+            if(players[i].getLocation().distanceSquared(location) <= radiusSquared){
+                ((CraftPlayer) players[i]).getHandle().playerConnection.sendPacket(packetPlayOutTitle);
+                ((CraftPlayer) players[i]).getHandle().playerConnection.sendPacket(packetPlayOutSubtitle);
+                players[i].sendMessage(prompt);
+            }
+        }
     }
 }

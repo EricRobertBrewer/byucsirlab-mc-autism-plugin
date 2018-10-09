@@ -2,14 +2,11 @@ package edu.byu.cs.autism;
 
 import edu.byu.cs.autism.friend.FriendMiniGameHistory;
 import edu.byu.cs.autism.maze.Maze;
-import net.minecraft.server.v1_12_R1.IChatBaseComponent;
-import net.minecraft.server.v1_12_R1.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -43,21 +40,6 @@ public class Autism extends JavaPlugin implements Listener {
             e.getPlayer().sendMessage("I click the player " + other);
         }
     }
-    
-    public void sendPromptToPlayersInLocation(Location location, double radius) {
-        Player[] players = getServer().getOnlinePlayers().toArray(new Player[0]);
-        double radiusSquared = radius*radius;
-        PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a( "{\"text\":\"Welcome to Chat Room\"}"));
-        PacketPlayOutTitle packetPlayOutSubtitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, IChatBaseComponent.ChatSerializer.a( "{\"text\":\"Use one minute to answer the question in chat.\"}"));
-        String prompt = Prompt.getRandomPrompt();
-        for (int i = 0; i < players.length; i++) {
-            if(players[i].getLocation().distanceSquared(location) <= radiusSquared){
-                ((CraftPlayer) players[i]).getHandle().playerConnection.sendPacket(packetPlayOutTitle);
-                ((CraftPlayer) players[i]).getHandle().playerConnection.sendPacket(packetPlayOutSubtitle);
-                players[i].sendMessage(prompt);
-            }
-        }
-    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -77,7 +59,7 @@ public class Autism extends JavaPlugin implements Listener {
             Maze.handleCommand(sender, command, label, args);
             return true;
         } else if ("prompt".equalsIgnoreCase(command.getName())) {
-            sendPromptToPlayersInLocation(new Location(getServer().getWorld("autism"), 0, 56, 0), 10);
+            Prompt.sendPromptToPlayersInLocation(this, new Location(getServer().getWorld("autism"), 0, 56, 0), 10);
             return true;
         } else  if ("wonGame".equalsIgnoreCase(command.getName())) {
             // TODO Maybe we need to actually raise an event when players finish a mini-game, so other modules can respond to them.
@@ -89,14 +71,12 @@ public class Autism extends JavaPlugin implements Listener {
         } else if ("dm".equalsIgnoreCase(command.getName())){
             //sends message to player , arg[0] is playing, following args are the message
             String cmd = "msg ";
-            for(int i = 0; i < args.length; i++){
+            for (int i = 0; i < args.length; i++){
+                //noinspection StringConcatenationInLoop
                 cmd += args[i];
             }
             getServer().dispatchCommand(getServer().getConsoleSender(),cmd );
-
-
         }
-
         return super.onCommand(sender, command, label, args);
     }
 }
