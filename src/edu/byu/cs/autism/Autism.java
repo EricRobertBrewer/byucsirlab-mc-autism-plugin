@@ -37,6 +37,15 @@ public class Autism extends JavaPlugin implements Listener {
         friendMiniGameHistory.save(getDataFolder());
     }
 
+    @EventHandler
+    private void onPlayerEntityInteraction(PlayerInteractEntityEvent e) {
+        final Entity entity = e.getRightClicked();
+        if (entity instanceof Player) {
+            final Player other = (Player) entity;
+            e.getPlayer().sendMessage("I click the player " + other);
+        }
+    }
+    
     public void sendPromptToPlayersInLocation(Location location, double radius) {
         Player[] players = getServer().getOnlinePlayers().toArray(new Player[0]);
         double radiusSquared = radius*radius;
