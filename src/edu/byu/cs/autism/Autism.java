@@ -34,7 +34,8 @@ public class Autism extends JavaPlugin implements Listener {
         final Entity entity = e.getRightClicked();
         if (entity instanceof Player) {
             final Player other = (Player) entity;
-            e.getPlayer().sendMessage("I click the player " + other);
+            e.getPlayer().sendMessage("I click the player " + other.getDisplayName());
+            other.sendMessage("You were clicked on by " + e.getPlayer().getDisplayName());
         }
     }
 
@@ -67,7 +68,7 @@ public class Autism extends JavaPlugin implements Listener {
         } else if ("dm".equalsIgnoreCase(command.getName())) {
             //sends message to player , arg[0] is playing, following args are the message
             String cmd = "msg ";
-            for (int i = 0; i < args.length; i++){
+            for(int i = 0; i < args.length; i++){
                 //noinspection StringConcatenationInLoop
                 cmd += args[i];
             }
