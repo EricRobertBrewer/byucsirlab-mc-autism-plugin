@@ -14,7 +14,7 @@ To do this in IntelliJ:
 
 ## Build JAR
 
-We need to build this plugin's JAR file into order to get its functionality into Minecraft.
+We need to build this plugin's JAR file in order to get its functionality into Minecraft.
 
 `Build` > `Build Artifacts...` > `Autism:jar` > `Build`
 

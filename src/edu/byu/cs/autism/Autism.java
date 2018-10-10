@@ -1,7 +1,7 @@
 package edu.byu.cs.autism;
 
 import edu.byu.cs.autism.friend.FriendMiniGameHistory;
-import edu.byu.cs.autism.maze.Maze;
+import edu.byu.cs.autism.minigame.Maze;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -18,15 +18,12 @@ public class Autism extends JavaPlugin implements Listener {
 
     private final FriendMiniGameHistory friendMiniGameHistory = new FriendMiniGameHistory();
 
-    //todo: load friendhistory from file
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
         friendMiniGameHistory.load(getDataFolder());
     }
 
-
-    //todo: save friendhistory to file
     @Override
     public void onDisable() {
         friendMiniGameHistory.save(getDataFolder());
@@ -64,11 +61,10 @@ public class Autism extends JavaPlugin implements Listener {
         } else  if ("wonGame".equalsIgnoreCase(command.getName())) {
             // TODO Maybe we need to actually raise an event when players finish a mini-game, so other modules can respond to them.
             friendMiniGameHistory.handleCommand(this, sender, command, label, args);
-        } else if ("gamesPlayed".equalsIgnoreCase(command.getName())){
-            int games = friendMiniGameHistory.totalGamesPlayed(args[0], args[1]);
+        } else if ("gamesPlayed".equalsIgnoreCase(command.getName())) {
+            int games = friendMiniGameHistory.getTotalGamesPlayed(args[0], args[1]);
             this.getServer().dispatchCommand(this.getServer().getConsoleSender(),"They played " + games + " games");
-
-        } else if ("dm".equalsIgnoreCase(command.getName())){
+        } else if ("dm".equalsIgnoreCase(command.getName())) {
             //sends message to player , arg[0] is playing, following args are the message
             String cmd = "msg ";
             for (int i = 0; i < args.length; i++){

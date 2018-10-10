@@ -1,4 +1,4 @@
-package edu.byu.cs.autism.maze;
+package edu.byu.cs.autism.minigame;
 
 import edu.byu.cs.autism.WorldNames;
 import org.bukkit.Bukkit;
