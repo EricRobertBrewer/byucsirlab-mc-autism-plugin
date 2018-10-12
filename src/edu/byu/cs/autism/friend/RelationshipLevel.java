@@ -17,7 +17,7 @@ public class RelationshipLevel {
         exp = 0;
     }
 
-    private static RelationshipLevel  getRelationship(String p1, String p2){
+    public static RelationshipLevel  getRelationship(String p1, String p2){
 
         //ensure relations has been initialized
         if(relationships == null){
