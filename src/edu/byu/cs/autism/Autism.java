@@ -1,6 +1,7 @@
 package edu.byu.cs.autism;
 
 import edu.byu.cs.autism.friend.FriendMiniGameHistory;
+import edu.byu.cs.autism.friend.RelationshipLevel;
 import edu.byu.cs.autism.minigame.Maze;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -22,6 +23,7 @@ public class Autism extends JavaPlugin implements Listener {
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
         friendMiniGameHistory.load(getDataFolder());
+
     }
 
     @Override
@@ -36,6 +38,7 @@ public class Autism extends JavaPlugin implements Listener {
             final Player other = (Player) entity;
             e.getPlayer().sendMessage("I click the player " + other.getDisplayName());
             other.sendMessage("You were clicked on by " + e.getPlayer().getDisplayName());
+            RelationshipLevel.initiateConversation(e.getPlayer().getUniqueId().toString(), other.getUniqueId().toString());
         }
     }
 
