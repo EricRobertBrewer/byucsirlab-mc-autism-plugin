@@ -18,11 +18,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Autism extends JavaPlugin implements Listener {
 
     private final FriendMiniGameHistory friendMiniGameHistory = new FriendMiniGameHistory();
+    RelationshipPH rph;
 
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
         friendMiniGameHistory.load(getDataFolder());
+         rph =  new RelationshipPH().register();
 
     }
 
@@ -39,6 +41,7 @@ public class Autism extends JavaPlugin implements Listener {
             e.getPlayer().sendMessage("I click the player " + other.getDisplayName());
             other.sendMessage("You were clicked on by " + e.getPlayer().getDisplayName());
             RelationshipLevel.initiateConversation(e.getPlayer().getUniqueId().toString(), other.getUniqueId().toString());
+            rph.setActiveOther(other.getUniqueId().toString());
         }
     }
 

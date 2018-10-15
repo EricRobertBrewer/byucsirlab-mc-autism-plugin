@@ -7,6 +7,12 @@ import org.bukkit.entity.Player;
 
 public class RelationshipPH extends PlaceholderExpansion  {
 
+    String activeOther=null;
+
+    public void setActiveOther(String other){
+        activeOther = other;
+    }
+
     @Override
     public boolean canRegister() {
         return true;
@@ -35,9 +41,9 @@ public class RelationshipPH extends PlaceholderExpansion  {
     public String onPlaceholderRequest(Player p, String identifier) {
 
         //will probably have to rework
-        return RelationshipLevel.getRelationship(p.getUniqueId().toString(), identifier).toString();
+        return RelationshipLevel.getRelationship(p.getUniqueId().toString(), activeOther).toString();
 
-        return null;
+        //return null;
     }
 
 }

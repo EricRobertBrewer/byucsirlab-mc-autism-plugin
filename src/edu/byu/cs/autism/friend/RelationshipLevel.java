@@ -19,6 +19,8 @@ public class RelationshipLevel {
 
     public static RelationshipLevel  getRelationship(String p1, String p2){
 
+        if(p2 == null) return new RelationshipLevel(p1, "(No Play Selected)");
+
         //ensure relations has been initialized
         if(relationships == null){
             createRelation(p1, p2, 3);
