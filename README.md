@@ -20,7 +20,7 @@ We need to build this plugin's JAR file in order to get its functionality into M
 
 ## Run
 
-To test changes, you can download [the latest server](https://drive.google.com/file/d/1wjeAv2i-atwKnjt5EsTkbl2AHqK3hYle/view?usp=sharing).
+To test changes, you can download the latest server snapshot from our [Slack workspace](https://byucsirlab.slack.com) in the `#minecraft-autism` channel.
 
 Copy the build artifact (called `Autism.jar` by default) from the step above to `<server_folder>/plugins/`.
 
