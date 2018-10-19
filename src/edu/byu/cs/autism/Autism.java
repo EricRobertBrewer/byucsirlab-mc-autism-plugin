@@ -1,5 +1,6 @@
 package edu.byu.cs.autism;
 
+import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import edu.byu.cs.autism.friend.FriendMiniGameHistory;
 import edu.byu.cs.autism.friend.RelationshipLevel;
@@ -33,7 +34,7 @@ public class Autism extends JavaPlugin implements Listener {
         try {
 
             HttpServer communicationServer = HttpServer.create(new InetSocketAddress(8000), 0);
-            communicationServer.createContext("",)
+            communicationServer.createContext("thing", (HttpHandler) new CommunicationHandler());
 
 
         } catch (Exception e){
