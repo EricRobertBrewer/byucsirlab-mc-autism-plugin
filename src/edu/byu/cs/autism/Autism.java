@@ -1,5 +1,6 @@
 package edu.byu.cs.autism;
 
+import com.sun.net.httpserver.HttpServer;
 import edu.byu.cs.autism.friend.FriendMiniGameHistory;
 import edu.byu.cs.autism.friend.RelationshipLevel;
 import edu.byu.cs.autism.minigame.Maze;
@@ -15,6 +16,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.net.InetSocketAddress;
+
 public class Autism extends JavaPlugin implements Listener {
 
     private final FriendMiniGameHistory friendMiniGameHistory = new FriendMiniGameHistory();
@@ -26,6 +29,16 @@ public class Autism extends JavaPlugin implements Listener {
         friendMiniGameHistory.load(getDataFolder());
          rph =  new RelationshipPH(friendMiniGameHistory);rph.register();
 
+
+        try {
+
+            HttpServer communicationServer = HttpServer.create(new InetSocketAddress(8000), 0);
+            communicationServer.createContext("",)
+
+
+        } catch (Exception e){
+
+        }
     }
 
     @Override

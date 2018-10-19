@@ -69,7 +69,7 @@ public class RelationshipPH extends PlaceholderExpansion  {
             if (relation == null) {
                 return "1";
             }
-            return String.valueOf(relation.getXpToNextLevel(friendMiniGameHistory));
+            return String.valueOf(relation.getXpForNextLevel(friendMiniGameHistory));
         } else if ("active_other_title".equalsIgnoreCase(identifier)) {
             if (relation == null) {
                 return "Interact with other players!";

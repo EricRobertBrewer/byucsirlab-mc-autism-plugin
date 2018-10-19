@@ -68,12 +68,17 @@ public class RelationshipLevel {
         return getXpOfNextLevel(history) - exp;
     }
 
+    public int getXpForNextLevel(FriendMiniGameHistory history) {
+        return getXpOfNextLevel(history) - getXpOfCurrentLevel(history);
+    }
+
+
     public int getXpOfNextLevel(FriendMiniGameHistory history){
         return levelToExp(getLevel(history) + 1);
     }
 
     public int getXpInCurrentLevel(FriendMiniGameHistory history) {
-        return getXpOfCurrentLevel(history) - exp;
+        return exp - getXpOfCurrentLevel(history);
     }
 
     public int getXpOfCurrentLevel(FriendMiniGameHistory history) {
