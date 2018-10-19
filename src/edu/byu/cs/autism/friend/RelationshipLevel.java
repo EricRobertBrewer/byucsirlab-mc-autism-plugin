@@ -1,7 +1,5 @@
 package edu.byu.cs.autism.friend;
 
-//import com.sun.org.apache.xpath.internal.operations.String;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,9 +15,10 @@ public class RelationshipLevel {
         exp = 0;
     }
 
-    public static RelationshipLevel  getRelationship(String p1, String p2){
+    public static RelationshipLevel getRelationship(String p1, String p2){
 
-        if(p2 == null) return new RelationshipLevel(p1, "(No Play Selected)");
+//        if(p2 == null) return new RelationshipLevel(p1, "(No Play Selected)");
+        if(p1 == null || p2 == null) return null;
 
         //ensure relations has been initialized
         if(relationships == null){
@@ -56,17 +55,40 @@ public class RelationshipLevel {
 
     String p1;
     String p2;
+    /**
+     * Cumulative. It does NOT reset back down to 0.
+     */
     int exp;
 
-    public int getLevel(String p1, String p2, FriendMiniGameHistory history){
-
+    public int getLevel(FriendMiniGameHistory history){
          return expToLevel(exp + GAME_WEIGHT * history.getTotalGamesPlayed(p1, p2));
-
     }
 
-    private static  int expToLevel(int exp){
+    public int getXpToNextLevel(FriendMiniGameHistory history) {
+        return getXpOfNextLevel(history) - exp;
+    }
+
+    public int getXpOfNextLevel(FriendMiniGameHistory history){
+        return levelToExp(getLevel(history) + 1);
+    }
+
+    public int getXpInCurrentLevel(FriendMiniGameHistory history) {
+        return getXpOfCurrentLevel(history) - exp;
+    }
+
+    public int getXpOfCurrentLevel(FriendMiniGameHistory history) {
+        return levelToExp(getLevel(history));
+    }
+
+    private static int expToLevel(int exp){
         return exp/GAME_WEIGHT;
     }
+
+    private static int levelToExp(int level){
+        return level * GAME_WEIGHT;
+    }
+
+
 
     public static void initiateConversation(String p1, String p2){
         getRelationship(p1, p2).exp += INITIATE_WEIGHT;

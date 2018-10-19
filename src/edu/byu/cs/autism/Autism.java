@@ -24,7 +24,7 @@ public class Autism extends JavaPlugin implements Listener {
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
         friendMiniGameHistory.load(getDataFolder());
-         rph =  new RelationshipPH().register();
+         rph =  new RelationshipPH(friendMiniGameHistory);rph.register();
 
     }
 
@@ -35,13 +35,16 @@ public class Autism extends JavaPlugin implements Listener {
 
     @EventHandler
     private void onPlayerEntityInteraction(PlayerInteractEntityEvent e) {
+        final Player player = e.getPlayer();
         final Entity entity = e.getRightClicked();
         if (entity instanceof Player) {
             final Player other = (Player) entity;
-            e.getPlayer().sendMessage("I click the player " + other.getDisplayName());
+            player.sendMessage("I click the player " + other.getDisplayName());
             other.sendMessage("You were clicked on by " + e.getPlayer().getDisplayName());
-            RelationshipLevel.initiateConversation(e.getPlayer().getUniqueId().toString(), other.getUniqueId().toString());
-            rph.setActiveOther(other.getUniqueId().toString());
+            RelationshipLevel.initiateConversation(player.getUniqueId().toString(), other.getUniqueId().toString());
+            rph.setActiveOther(player.getUniqueId().toString(), other.getUniqueId().toString());
+            rph.setActiveOther(other.getUniqueId().toString(), player.getUniqueId().toString());
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ubb reload");
         }
     }
 
@@ -73,12 +76,11 @@ public class Autism extends JavaPlugin implements Listener {
             this.getServer().dispatchCommand(this.getServer().getConsoleSender(),"They played " + games + " games");
         } else if ("dm".equalsIgnoreCase(command.getName())) {
             //sends message to player , arg[0] is playing, following args are the message
-            String cmd = "msg ";
-            for(int i = 0; i < args.length; i++){
-                //noinspection StringConcatenationInLoop
-                cmd += args[i];
+            StringBuilder cmd = new StringBuilder("msg ");
+            for (String arg : args) {
+                cmd.append(arg);
             }
-            getServer().dispatchCommand(getServer().getConsoleSender(),cmd );
+            getServer().dispatchCommand(getServer().getConsoleSender(), cmd.toString());
         }
         return super.onCommand(sender, command, label, args);
     }
