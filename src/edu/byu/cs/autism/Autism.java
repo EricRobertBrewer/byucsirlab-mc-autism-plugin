@@ -55,10 +55,26 @@ public class Autism extends JavaPlugin implements Listener {
             final Player other = (Player) entity;
             player.sendMessage("I click the player " + other.getDisplayName());
             other.sendMessage("You were clicked on by " + e.getPlayer().getDisplayName());
+
+            if(EyeContact.eyeContact(player, other)){
+                player.sendMessage("Eye contact made");
+            } else {
+                player.sendMessage("Eye contact NOT made");
+
+            }
+
+            player.sendMessage("Vector to other: " + EyeContact.eyeToeye(player,other).toString());
+            player.sendMessage( "Direction vector: " + EyeContact.direction(player.getEyeLocation().getPitch(), player.getEyeLocation().getYaw()).toString());
+            player.sendMessage("Cosine Sim: " + EyeContact.cossime(EyeContact.eyeToeye(player,other),EyeContact.direction(player.getEyeLocation().getPitch(), player.getEyeLocation().getYaw())));
+
+
             RelationshipLevel.initiateConversation(player.getUniqueId().toString(), other.getUniqueId().toString());
             rph.setActiveOther(player.getUniqueId().toString(), other.getUniqueId().toString());
             rph.setActiveOther(other.getUniqueId().toString(), player.getUniqueId().toString());
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ubb reload");
+
+            player.getLocation();
+            player.getEyeLocation();
         }
     }
 
@@ -95,6 +111,10 @@ public class Autism extends JavaPlugin implements Listener {
                 cmd.append(arg);
             }
             getServer().dispatchCommand(getServer().getConsoleSender(), cmd.toString());
+        } else if ("eyeTest".equalsIgnoreCase(command.getName())){
+
+            Player player = getServer().getPlayer(sender.getName());
+            sender.sendMessage("Center: " + player.getLocation().toString() + " Eye: " + player.getEyeLocation().toString());
         }
         return super.onCommand(sender, command, label, args);
     }

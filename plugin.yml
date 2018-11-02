@@ -15,4 +15,6 @@ commands:
     description: Reports how many games two players have played
   dm:
     description: Send a direct message to a player
+  eyeTest:
+    description: Gives location of eye and player's location
 
