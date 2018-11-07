@@ -18,8 +18,22 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.net.InetSocketAddress;
+import java.util.List;
 
 public class Autism extends JavaPlugin implements Listener {
+
+
+    List<Conversation> conversations;
+
+    public void testConversations(){
+        //should be called each tick, somehow
+        for(int i = conversations.size() - 1; i >= 0; i--){
+            conversations.get(i).update();
+            if(!conversations.get(i).active) {
+                conversations.remove(i);
+            }
+        }
+    }
 
     private final FriendMiniGameHistory friendMiniGameHistory = new FriendMiniGameHistory();
     RelationshipPH rph;
@@ -67,6 +81,7 @@ public class Autism extends JavaPlugin implements Listener {
             player.sendMessage( "Direction vector: " + EyeContact.direction(player.getEyeLocation().getPitch(), player.getEyeLocation().getYaw()).toString());
             player.sendMessage("Cosine Sim: " + EyeContact.cossime(EyeContact.eyeToeye(player,other),EyeContact.direction(player.getEyeLocation().getPitch(), player.getEyeLocation().getYaw())));
 
+            conversations.add(new Conversation(player, other));
 
             RelationshipLevel.initiateConversation(player.getUniqueId().toString(), other.getUniqueId().toString());
             rph.setActiveOther(player.getUniqueId().toString(), other.getUniqueId().toString());
