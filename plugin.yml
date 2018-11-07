@@ -17,4 +17,6 @@ commands:
     description: Send a direct message to a player
   eyeTest:
     description: Gives location of eye and player's location
+  testConversations:
+    description: Ticks for conversations
 
