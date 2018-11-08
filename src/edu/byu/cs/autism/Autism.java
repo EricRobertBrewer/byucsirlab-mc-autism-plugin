@@ -70,6 +70,8 @@ public class Autism extends JavaPlugin implements Listener {
             player.sendMessage("I click the player " + other.getDisplayName());
             other.sendMessage("You were clicked on by " + e.getPlayer().getDisplayName());
 
+            new PlayerMenu().openMenu(e.getPlayer(), other);
+
             if(EyeContact.eyeContact(player, other)){
                 player.sendMessage("Eye contact made");
             } else {
