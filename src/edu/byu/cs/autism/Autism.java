@@ -20,10 +20,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.net.InetSocketAddress;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class Autism extends JavaPlugin implements Listener {
 
 
-    List<Conversation> conversations;
+    private List<Conversation> conversations;
 
     public void testConversations(){
         //should be called each tick, somehow
@@ -36,7 +37,7 @@ public class Autism extends JavaPlugin implements Listener {
     }
 
     private final FriendMiniGameHistory friendMiniGameHistory = new FriendMiniGameHistory();
-    RelationshipPH rph;
+    private RelationshipPH rph;
 
     @Override
     public void onEnable() {
@@ -51,7 +52,7 @@ public class Autism extends JavaPlugin implements Listener {
             communicationServer.createContext("thing", (HttpHandler) new CommunicationHandler());
 
 
-        } catch (Exception e){
+        } catch (Exception ignored){
 
         }
     }
@@ -61,6 +62,7 @@ public class Autism extends JavaPlugin implements Listener {
         friendMiniGameHistory.save(getDataFolder());
     }
 
+    @SuppressWarnings("unused")
     @EventHandler
     private void onPlayerEntityInteraction(PlayerInteractEntityEvent e) {
         final Player player = e.getPlayer();
