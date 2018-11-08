@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.net.InetSocketAddress;
@@ -65,6 +66,11 @@ public class Autism extends JavaPlugin implements Listener {
     @SuppressWarnings("unused")
     @EventHandler
     private void onPlayerEntityInteraction(PlayerInteractEntityEvent e) {
+        // Right-clicking fires twice - once for each hand.
+        // Suppress the event fired by the OFF_HAND.
+        if (e.getHand() == EquipmentSlot.OFF_HAND) {
+            return;
+        }
         final Player player = e.getPlayer();
         final Entity entity = e.getRightClicked();
         if (entity instanceof Player) {
