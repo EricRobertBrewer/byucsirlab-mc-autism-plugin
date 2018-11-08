@@ -18,6 +18,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.net.InetSocketAddress;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Autism extends JavaPlugin implements Listener {
@@ -30,6 +31,7 @@ public class Autism extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        Conversation.conversations = new LinkedList<>();
         getServer().getPluginManager().registerEvents(this, this);
         friendMiniGameHistory.load(getDataFolder());
          rph =  new RelationshipPH(friendMiniGameHistory);rph.register();
