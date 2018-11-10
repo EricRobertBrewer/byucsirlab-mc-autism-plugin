@@ -1,8 +1,16 @@
 package edu.byu.cs.autism;
 
+import edu.byu.cs.autism.friend.RelationshipLevel;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 
 public class Conversation {
 
@@ -33,15 +41,52 @@ public class Conversation {
 
     boolean active = true;
 
-    final double GRACE_SPAN = 100; //five seconds
+    final int GRACE_SPAN = 100; //five seconds
+    final static int CHECK_POINT = 1200;
 
-    double gracePoints = GRACE_SPAN;
+
+    int gracePoints = GRACE_SPAN;
+
+
+
+    int time = 0;
+
+    boolean makingEyecontact = false;
 
 
 
     void update(){
-        if(EyeContact.eyeContact(one,two)){ //later also check for distance, if speaking
+
+        if(time == 0){
+            log(new File("LogFolder"),one.getUniqueId().toString() + "_" + two.getUniqueId().toString(),
+                    "Conversation started at" + new Date().toString());
+        }
+
+        time++;
+
+        if(EyeContact.eyeContact(one,two) && !makingEyecontact) {
+            log(new File("LogFolder"),one.getUniqueId().toString() + "_" + two.getUniqueId().toString(),
+                    "Eye Contact Made at" + new Date().toString());
+            makingEyecontact = true;
+        }
+
+        if(!EyeContact.eyeContact(one,two) && makingEyecontact) {
+            log(new File("LogFolder"),one.getUniqueId().toString() + "_" + two.getUniqueId().toString(),
+                    "Eye Contact broken at" + new Date().toString());
+            makingEyecontact = false;
+        }
+
+
+
+        if(time == CHECK_POINT){
+            RelationshipLevel.checkpoint(one.getUniqueId().toString(), two.getUniqueId().toString());
+
+        }
+
+        if(EyeContact.eyeContact(one,two) && PersonalSpace.personalSpace(one,two)){ //later also check if speaking
             gracePoints = GRACE_SPAN;
+            RelationshipLevel.converse(one.getUniqueId().toString(), two.getUniqueId().toString());
+
         } else {
             gracePoints--;
         }
@@ -50,10 +95,36 @@ public class Conversation {
             active = false;
             one.sendMessage("Your conversation with " + two.getDisplayName() + " has ended.");
             two.sendMessage( "Your conversation with " + one.getDisplayName() + " has ended.");
+            //log end of conversation
+            log(new File("LogFolder"),one.getUniqueId().toString() + "_" + two.getUniqueId().toString(),
+                    "Conversation ended at" + new Date().toString());
         }
 
     }
 
+
+    public void log(File dataFolder, String log, String message ){
+
+        try {
+            final File logFile = new File(dataFolder, log  );
+            if (!logFile.exists() && !logFile.createNewFile()) {
+                Bukkit.getLogger().log(Level.INFO, "Can't create mini-game file: `" + logFile.getName() + "`.");
+                return;
+            }
+            if (!logFile.canWrite() && !logFile.setWritable(true)) {
+                Bukkit.getLogger().log(Level.INFO, "Can't write to mini-game file: `" + logFile.getName() + "`.");
+                return;
+            }
+            final OutputStream outputStream = new FileOutputStream(logFile);
+            final PrintStream out = new PrintStream(outputStream);
+
+            out.println(message);
+
+        } catch (Exception e){
+
+        }
+
+    }
 
 
 }

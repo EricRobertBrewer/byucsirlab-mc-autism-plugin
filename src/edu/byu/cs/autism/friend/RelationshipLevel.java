@@ -6,8 +6,21 @@ import java.util.Map;
 public class RelationshipLevel {
     static Map<String, Map<String, RelationshipLevel>> relationships = null;
 
-    static final int GAME_WEIGHT = 5;
-    static final int INITIATE_WEIGHT = 1;
+    //constants
+    static final int GAME_WEIGHT = 1200;
+    static final int INITIATE_WEIGHT = 10;
+    static final int CONVERSE_WEIGHT = 0;
+    static final int CHECK_POINT_WEIGHT = 1000;
+
+
+    //unique ids
+    String p1;
+    String p2;
+    /**
+     * Cumulative. It does NOT reset back down to 0.
+     */
+    int exp;
+
 
     public RelationshipLevel(String p1, String p2) {
         this.p1 = p1;
@@ -53,12 +66,6 @@ public class RelationshipLevel {
 
 
 
-    String p1;
-    String p2;
-    /**
-     * Cumulative. It does NOT reset back down to 0.
-     */
-    int exp;
 
     public int getLevel(FriendMiniGameHistory history){
          return expToLevel(exp + GAME_WEIGHT * history.getTotalGamesPlayed(p1, p2));
@@ -99,6 +106,19 @@ public class RelationshipLevel {
         getRelationship(p1, p2).exp += INITIATE_WEIGHT;
         getRelationship(p2, p1).exp += INITIATE_WEIGHT;
     }
+
+    public static void converse(String p1, String p2){
+        getRelationship(p1, p2).exp += CONVERSE_WEIGHT;
+        getRelationship(p2, p1).exp += CONVERSE_WEIGHT;
+    }
+
+    public static void checkpoint(String p1, String p2){
+        getRelationship(p1, p2).exp += CHECK_POINT_WEIGHT;
+        getRelationship(p2, p1).exp += CHECK_POINT_WEIGHT;
+    }
+
+
+
 
 
 }
