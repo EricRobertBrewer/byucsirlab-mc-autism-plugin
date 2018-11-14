@@ -9,7 +9,7 @@ public class RelationshipLevel {
     //constants
     static final int GAME_WEIGHT = 1200;
     static final int INITIATE_WEIGHT = 10;
-    static final int CONVERSE_WEIGHT = 0;
+    static final int CONVERSE_WEIGHT = 1;
     static final int CHECK_POINT_WEIGHT = 1000;
 
 

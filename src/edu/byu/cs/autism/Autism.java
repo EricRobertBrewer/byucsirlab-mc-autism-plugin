@@ -31,7 +31,7 @@ public class Autism extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        Conversation.conversations = new LinkedList<>();
+
         getServer().getPluginManager().registerEvents(this, this);
         friendMiniGameHistory.load(getDataFolder());
          rph =  new RelationshipPH(friendMiniGameHistory);rph.register();
@@ -73,7 +73,8 @@ public class Autism extends JavaPlugin implements Listener {
             player.sendMessage( "Direction vector: " + EyeContact.direction(player.getEyeLocation().getPitch(), player.getEyeLocation().getYaw()).toString());
             player.sendMessage("Cosine Sim: " + EyeContact.cossime(EyeContact.eyeToeye(player,other),EyeContact.direction(player.getEyeLocation().getPitch(), player.getEyeLocation().getYaw())));
 
-            Conversation.conversations.add(new Conversation(player, other));
+
+            Conversation.add(player, other);
 
             RelationshipLevel.initiateConversation(player.getUniqueId().toString(), other.getUniqueId().toString());
             rph.setActiveOther(player.getUniqueId().toString(), other.getUniqueId().toString());

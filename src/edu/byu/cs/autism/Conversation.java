@@ -8,7 +8,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -17,9 +19,11 @@ public class Conversation {
     Player one;
     Player two;
 
-    static  List<Conversation> conversations;
+    private static  List<Conversation> conversations;
 
-    static public void testConversations(){
+    static private void testConversations(){
+        if(conversations == null) conversations = new ArrayList<>();
+
         //should be called each tick, somehow
         for(int i = conversations.size() - 1; i >= 0; i--){
             conversations.get(i).update();
@@ -55,24 +59,62 @@ public class Conversation {
 
 
 
+    public static void add(Player a, Player b){
+
+
+        //standardize order
+
+        Player one;
+        Player two;
+
+        if(a.getUniqueId().toString().compareTo(b.getUniqueId().toString()) > 0){
+            one = a;
+            two = b;
+        } else {
+            one = b;
+            two = a;
+        }
+
+        //check that conversation is not already in list
+
+        boolean alreadyIn = false;
+
+        if(conversations == null) conversations = new ArrayList<>();
+
+        for(int i = 0; i < conversations.size() && !alreadyIn; i++){
+            if(conversations.get(i).one.equals(one) && conversations.get(i).two.equals(two)){
+                alreadyIn = true;
+            }
+
+        }
+        if(!alreadyIn){
+            conversations.add(new Conversation(one,two));
+        }
+
+
+    }
+
+
     void update(){
+
+
 
         if(time == 0){
             log(new File("LogFolder"),one.getUniqueId().toString() + "_" + two.getUniqueId().toString(),
-                    "Conversation started at" + new Date().toString());
+                    "Conversation started at " + new Date().toString());
         }
 
         time++;
 
         if(EyeContact.eyeContact(one,two) && !makingEyecontact) {
             log(new File("LogFolder"),one.getUniqueId().toString() + "_" + two.getUniqueId().toString(),
-                    "Eye Contact Made at" + new Date().toString());
+                    "Eye Contact Made at " + new Date().toString());
             makingEyecontact = true;
         }
 
         if(!EyeContact.eyeContact(one,two) && makingEyecontact) {
             log(new File("LogFolder"),one.getUniqueId().toString() + "_" + two.getUniqueId().toString(),
-                    "Eye Contact broken at" + new Date().toString());
+                    "Eye Contact broken at " + new Date().toString());
             makingEyecontact = false;
         }
 
@@ -97,7 +139,7 @@ public class Conversation {
             two.sendMessage( "Your conversation with " + one.getDisplayName() + " has ended.");
             //log end of conversation
             log(new File("LogFolder"),one.getUniqueId().toString() + "_" + two.getUniqueId().toString(),
-                    "Conversation ended at" + new Date().toString());
+                    "Conversation ended at " + new Date().toString());
         }
 
     }
@@ -106,6 +148,12 @@ public class Conversation {
     public void log(File dataFolder, String log, String message ){
 
         try {
+
+            if(!dataFolder.exists() && !dataFolder.mkdirs()){
+                System.err.println("Folder failed");
+                return;
+            }
+
             final File logFile = new File(dataFolder, log  );
             if (!logFile.exists() && !logFile.createNewFile()) {
                 Bukkit.getLogger().log(Level.INFO, "Can't create mini-game file: `" + logFile.getName() + "`.");
@@ -115,10 +163,12 @@ public class Conversation {
                 Bukkit.getLogger().log(Level.INFO, "Can't write to mini-game file: `" + logFile.getName() + "`.");
                 return;
             }
-            final OutputStream outputStream = new FileOutputStream(logFile);
+            final OutputStream outputStream = new FileOutputStream(logFile, true);
             final PrintStream out = new PrintStream(outputStream);
 
             out.println(message);
+            out.close();
+            outputStream.close();
 
         } catch (Exception e){
 
