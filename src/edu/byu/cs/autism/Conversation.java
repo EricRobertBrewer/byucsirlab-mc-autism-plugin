@@ -41,6 +41,10 @@ public class Conversation {
     public Conversation(Player one, Player two) {
         this.one = one;
         this.two = two;
+
+        RelationshipLevel.initiateConversation(one.getUniqueId().toString(), two.getUniqueId().toString());
+
+
     }
 
     boolean active = true;
@@ -57,6 +61,7 @@ public class Conversation {
 
     boolean makingEyecontact = false;
 
+    boolean checkPointReached = false;
 
 
     public static void add(Player a, Player b){
@@ -120,9 +125,10 @@ public class Conversation {
 
 
 
-        if(time == CHECK_POINT){
+        if(time > CHECK_POINT && !checkPointReached){
             RelationshipLevel.checkpoint(one.getUniqueId().toString(), two.getUniqueId().toString());
-
+            one.sendMessage("Your conversation with " + two.getDisplayName() + " has gone on for awhile.");
+            checkPointReached = true;
         }
 
         if(EyeContact.eyeContact(one,two) && PersonalSpace.personalSpace(one,two)){ //later also check if speaking

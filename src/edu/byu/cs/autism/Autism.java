@@ -76,7 +76,6 @@ public class Autism extends JavaPlugin implements Listener {
 
             Conversation.add(player, other);
 
-            RelationshipLevel.initiateConversation(player.getUniqueId().toString(), other.getUniqueId().toString());
             rph.setActiveOther(player.getUniqueId().toString(), other.getUniqueId().toString());
             rph.setActiveOther(other.getUniqueId().toString(), player.getUniqueId().toString());
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ubb reload");
