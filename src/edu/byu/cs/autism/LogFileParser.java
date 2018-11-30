@@ -70,7 +70,7 @@ public class LogFileParser {
         } else {
 
             entries = new LinkedList<>();
-            int i = 0;
+            int i = 1;
             LogEntry entry = null;
             do {
                 entry = getEntry( i);
@@ -104,7 +104,7 @@ public class LogFileParser {
         Date start = getClassOfEntry(LogEntry.Type.START_CONVERSATION).get(num).timestamp;
         Date end = getClassOfEntry(LogEntry.Type.END_CONVERSATION).get(num).timestamp;
 
-        return  end.getTime() - start.getTime();
+        return  (end.getTime() - start.getTime())/1000;
 
     }
 
@@ -118,7 +118,7 @@ public class LogFileParser {
           sum += getConversationLength(i) ;
         }
 
-        return sum/1000;
+        return sum;
     }
 
 }
