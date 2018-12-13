@@ -17,14 +17,14 @@ public class PlayerMenu implements Listener {
     private static final String title_option1 = "Info";
     private static final String title_option2 = "Talk";
     private static final String title_option3 = "Add friend";
-    private static final String title_option4 = "Invite to group";
+    private static final String title_option4 = "Invite";
 
     public void openMenu(Player player, Player other) {
         if (player == null || other == null) {
             return;
         }
 
-        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.RED + other.getDisplayName());
+        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.RED + other.getDisplayName() + "'s menu");
 
         ItemStack option1 = initOption(Material.BOOK, title_option1);
         ItemStack option2 = initOption(Material.WATCH, title_option2);

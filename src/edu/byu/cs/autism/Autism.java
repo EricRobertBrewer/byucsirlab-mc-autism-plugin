@@ -33,6 +33,7 @@ public class Autism extends JavaPlugin implements Listener {
     public void onEnable() {
 
         getServer().getPluginManager().registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(new PlayerMenu(), this);
         friendMiniGameHistory.load(getDataFolder());
          rph =  new RelationshipPH(friendMiniGameHistory);rph.register();
 
