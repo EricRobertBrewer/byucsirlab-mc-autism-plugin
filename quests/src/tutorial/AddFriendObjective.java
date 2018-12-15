@@ -29,7 +29,6 @@ public class AddFriendObjective extends CustomObjective implements Listener {
         final Quest quest = ((Quests) JavaPlugin.getPlugin(Quests.class)).getQuest(ADD_FRIEND_QUEST_NAME);
 
         if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(TITLE_OPTION_ADD_FRIEND)) {
-            player.sendMessage("I should have completed the quest");
             incrementObjective(player, this, 999, quest);
         }
     }
