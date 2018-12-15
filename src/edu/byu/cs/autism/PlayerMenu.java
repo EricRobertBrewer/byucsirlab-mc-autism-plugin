@@ -42,6 +42,7 @@ public class PlayerMenu implements Listener {
             e.getWhoClicked().closeInventory();
         }
         else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(title_option2)) {
+            // TODO: initiate conservation
             e.getWhoClicked().sendMessage("I clicked " + title_option2);
             e.getWhoClicked().closeInventory();
         }

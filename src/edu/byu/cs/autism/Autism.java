@@ -60,19 +60,20 @@ public class Autism extends JavaPlugin implements Listener {
         final Entity entity = e.getRightClicked();
         if (entity instanceof Player) {
             final Player other = (Player) entity;
-            player.sendMessage("I click the player " + other.getDisplayName());
+            new PlayerMenu().openMenu(player, other);
+            //player.sendMessage("I click the player " + other.getDisplayName());
             other.sendMessage("You were clicked on by " + e.getPlayer().getDisplayName());
 
+            /*
             if(EyeContact.eyeContact(player, other)){
                 player.sendMessage("Eye contact made");
             } else {
                 player.sendMessage("Eye contact NOT made");
+            }*/
 
-            }
-
-            player.sendMessage("Vector to other: " + EyeContact.eyeToeye(player,other).toString());
-            player.sendMessage( "Direction vector: " + EyeContact.direction(player.getEyeLocation().getPitch(), player.getEyeLocation().getYaw()).toString());
-            player.sendMessage("Cosine Sim: " + EyeContact.cossime(EyeContact.eyeToeye(player,other),EyeContact.direction(player.getEyeLocation().getPitch(), player.getEyeLocation().getYaw())));
+            //player.sendMessage("Vector to other: " + EyeContact.eyeToeye(player,other).toString());
+            //player.sendMessage( "Direction vector: " + EyeContact.direction(player.getEyeLocation().getPitch(), player.getEyeLocation().getYaw()).toString());
+            //player.sendMessage("Cosine Sim: " + EyeContact.cossime(EyeContact.eyeToeye(player,other),EyeContact.direction(player.getEyeLocation().getPitch(), player.getEyeLocation().getYaw())));
 
 
             Conversation.add(player, other);
