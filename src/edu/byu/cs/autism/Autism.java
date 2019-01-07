@@ -76,7 +76,6 @@ public class Autism extends JavaPlugin implements Listener {
             //player.sendMessage("Cosine Sim: " + EyeContact.cossime(EyeContact.eyeToeye(player,other),EyeContact.direction(player.getEyeLocation().getPitch(), player.getEyeLocation().getYaw())));
 
 
-            Conversation.add(player, other);
 
             rph.setActiveOther(player.getUniqueId().toString(), other.getUniqueId().toString());
             rph.setActiveOther(other.getUniqueId().toString(), player.getUniqueId().toString());

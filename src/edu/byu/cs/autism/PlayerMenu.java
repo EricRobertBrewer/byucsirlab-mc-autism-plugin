@@ -19,10 +19,19 @@ public class PlayerMenu implements Listener {
     private static final String title_option3 = "Add friend";
     private static final String title_option4 = "Invite";
 
+    private Player me;
+    private Player you;
+
     public void openMenu(Player player, Player other) {
+
+
+
         if (player == null || other == null) {
             return;
         }
+
+        me = player;
+        you = other;
 
         Inventory inv = Bukkit.createInventory(null, 27, ChatColor.RED + other.getDisplayName() + "'s menu");
 
@@ -42,7 +51,7 @@ public class PlayerMenu implements Listener {
             e.getWhoClicked().closeInventory();
         }
         else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(title_option2)) {
-            // TODO: initiate conservation
+            Conversation.add(me, you);
             e.getWhoClicked().sendMessage("I clicked " + title_option2);
             e.getWhoClicked().closeInventory();
         }
