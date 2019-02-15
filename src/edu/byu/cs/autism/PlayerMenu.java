@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
+import java.util.logging.Level;
 
 public class PlayerMenu implements Listener {
     private static final String title_option1 = "Info";
@@ -33,6 +34,9 @@ public class PlayerMenu implements Listener {
         me = player;
         you = other;
 
+        Bukkit.getLogger().log(Level.INFO, "PRE: " + me.getDisplayName() );
+        Bukkit.getLogger().log(Level.INFO, "PRE" + you.getDisplayName() );
+
         Inventory inv = Bukkit.createInventory(null, 27, ChatColor.RED + other.getDisplayName() + "'s menu");
 
         ItemStack option1 = initOption(Material.BOOK, title_option1);
@@ -51,6 +55,9 @@ public class PlayerMenu implements Listener {
             e.getWhoClicked().closeInventory();
         }
         else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(title_option2)) {
+            Bukkit.getLogger().log(Level.INFO, "POST: " + me.getDisplayName() );
+            Bukkit.getLogger().log(Level.INFO, "POST: "  + you.getDisplayName() );
+
             Conversation.add(me, you);
             e.getWhoClicked().sendMessage("I clicked " + title_option2);
             e.getWhoClicked().closeInventory();

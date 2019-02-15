@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.LogRecord;
 
 public class Conversation {
 
@@ -46,6 +47,21 @@ public class Conversation {
     public Conversation(Player one, Player two) {
         this.one = one;
         this.two = two;
+
+        //create thread
+        //create new router
+        //connect audio to user
+
+       // new Router().connectTo(two.getAddress().getAddress().toString());
+
+        Bukkit.getLogger().log(Level.INFO, "Making connection" );
+
+
+        Router.addressPair.put(one.getAddress().toString(), two.getAddress().toString());
+        Router.addressPair.put(two.getAddress().toString(), one. getAddress().toString());
+
+        Bukkit.getLogger().log(Level.INFO, "Connection made" );
+
 
         RelationshipLevel.initiateConversation(one.getUniqueId().toString(), two.getUniqueId().toString());
 
@@ -101,6 +117,7 @@ public class Conversation {
             conversations.add(new Conversation(one,two));
         }
 
+        Bukkit.getLogger().log(Level.INFO, "Convo added" );
 
     }
 
