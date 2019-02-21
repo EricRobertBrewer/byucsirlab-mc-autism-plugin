@@ -128,6 +128,8 @@ public class Autism extends JavaPlugin implements Listener {
             Conversation.handleCommand("testConversations");
         }
 
+        String string = "horse";
+
         return super.onCommand(sender, command, label, args);
     }
 }

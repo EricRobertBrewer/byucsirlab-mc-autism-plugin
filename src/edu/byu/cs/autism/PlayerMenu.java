@@ -11,7 +11,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 
 public class PlayerMenu implements Listener {
@@ -20,8 +22,11 @@ public class PlayerMenu implements Listener {
     private static final String title_option3 = "Add friend";
     private static final String title_option4 = "Invite";
 
-    private Player me;
-    private Player you;
+
+    private static Map<Player, Player> openedMenu = new HashMap<>();
+
+    //private Player me;
+    //private Player you;
 
     public void openMenu(Player player, Player other) {
 
@@ -31,11 +36,17 @@ public class PlayerMenu implements Listener {
             return;
         }
 
-        me = player;
-        you = other;
+
+        openedMenu.put(player, other);
+
+        Player me = player;
+
+        Player you = openedMenu.get(me);
 
         Bukkit.getLogger().log(Level.INFO, "PRE: " + me.getDisplayName() );
         Bukkit.getLogger().log(Level.INFO, "PRE" + you.getDisplayName() );
+
+
 
         Inventory inv = Bukkit.createInventory(null, 27, ChatColor.RED + other.getDisplayName() + "'s menu");
 
@@ -55,6 +66,14 @@ public class PlayerMenu implements Listener {
             e.getWhoClicked().closeInventory();
         }
         else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(title_option2)) {
+
+            Player me = (Player) e.getWhoClicked();
+
+            Player you = openedMenu.get(me);
+
+            Bukkit.getLogger().log(Level.INFO, "PRE: " + me.getDisplayName() );
+            Bukkit.getLogger().log(Level.INFO, "PRE" + you.getDisplayName() );
+
             Bukkit.getLogger().log(Level.INFO, "POST: " + me.getDisplayName() );
             Bukkit.getLogger().log(Level.INFO, "POST: "  + you.getDisplayName() );
 
