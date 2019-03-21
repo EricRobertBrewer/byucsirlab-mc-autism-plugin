@@ -1,7 +1,6 @@
 package edu.byu.cs.autism;
 
 import edu.byu.cs.autism.friend.RelationshipLevel;
-import net.ess3.api.events.AfkStatusChangeEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,9 +21,6 @@ public class Conversation {
     Player one;
     Player two;
 
-    boolean afk1;
-    boolean afk2;
-
     private static  List<Conversation> conversations;
 
     static private void testConversations(){
@@ -40,7 +36,7 @@ public class Conversation {
     }
 
     //getConversation(Player one, Player two)
-   public static void handleCommand(String command){
+    public static void handleCommand(String command){
         testConversations();
     }
 
@@ -121,26 +117,6 @@ public class Conversation {
 
     }
 
-
-
-    @EventHandler
-    private  void onAFK(AfkStatusChangeEvent e){
-
-        //note - how to handle if conversation initiated with AFK user?
-
-        if(e.getAffected().getBase().equals(one)){
-
-           afk1 = e.getAffected().isAfk();
-
-        }
-
-        if(e.getAffected().getBase().equals(two)){
-            afk2 = e.getAffected().isAfk();
-        }
-
-
-    }
-
     void update(){
 
 
@@ -175,7 +151,7 @@ public class Conversation {
             checkPointReached = true;
         }
 
-        if(EyeContact.eyeContact(one,two) && PersonalSpace.personalSpace(one,two) && !afk2 && !afk1){ //later also check if speaking
+        if(EyeContact.eyeContact(one,two) && PersonalSpace.personalSpace(one,two)){ //later also check if speaking
             gracePoints = GRACE_SPAN;
             RelationshipLevel.converse(one.getUniqueId().toString(), two.getUniqueId().toString());
 

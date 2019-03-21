@@ -28,12 +28,13 @@ public class Autism extends JavaPlugin implements Listener {
 
     private final FriendMiniGameHistory friendMiniGameHistory = new FriendMiniGameHistory();
     RelationshipPH rph;
+    private final PlayerMenu playerMenu = new PlayerMenu();
 
     @Override
     public void onEnable() {
 
         getServer().getPluginManager().registerEvents(this, this);
-        getServer().getPluginManager().registerEvents(new PlayerMenu(), this);
+        getServer().getPluginManager().registerEvents(playerMenu, this);
         friendMiniGameHistory.load(getDataFolder());
          rph =  new RelationshipPH(friendMiniGameHistory);rph.register();
 
@@ -60,9 +61,9 @@ public class Autism extends JavaPlugin implements Listener {
         final Entity entity = e.getRightClicked();
         if (entity instanceof Player) {
             final Player other = (Player) entity;
-            new PlayerMenu().openMenu(player, other);
+            playerMenu.openMenu(player, other);
             //player.sendMessage("I click the player " + other.getDisplayName());
-            other.sendMessage("You were clicked on by " + e.getPlayer().getDisplayName());
+//            other.sendMessage("You were clicked on by " + e.getPlayer().getDisplayName());
 
             /*
             if(EyeContact.eyeContact(player, other)){

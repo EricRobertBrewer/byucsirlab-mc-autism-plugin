@@ -59,7 +59,15 @@ public class RelationshipPH extends PlaceholderExpansion  {
             if (other == null) {
                 return "";
             }
-            return Bukkit.getServer().getPlayer(UUID.fromString(other)).getDisplayName() + "&0:";
+            final Player player = Bukkit.getServer().getPlayer(UUID.fromString(other));
+            if (player == null) {
+                return "";
+            }
+            final String name = player.getDisplayName();
+            if (name == null) {
+                return "";
+            }
+            return name;
         } else if ("active_other_xp_in_current_level".equalsIgnoreCase(identifier)) {
             if (relation == null) {
                 return "0";
