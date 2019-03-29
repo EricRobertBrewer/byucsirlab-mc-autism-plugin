@@ -1,7 +1,7 @@
 package edu.byu.cs.autism;
 
 import edu.byu.cs.autism.friend.RelationshipLevel;
-import net.ess3.api.events.AfkStatusChangeEvent;
+//import net.ess3.api.events.AfkStatusChangeEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -122,24 +122,25 @@ public class Conversation {
     }
 
 
+//command out
 
-    @EventHandler
-    private  void onAFK(AfkStatusChangeEvent e){
-
-        //note - how to handle if conversation initiated with AFK user?
-
-        if(e.getAffected().getBase().equals(one)){
-
-           afk1 = e.getAffected().isAfk();
-
-        }
-
-        if(e.getAffected().getBase().equals(two)){
-            afk2 = e.getAffected().isAfk();
-        }
-
-
-    }
+//    @EventHandler
+//    private  void onAFK(AfkStatusChangeEvent e){
+//
+//        //note - how to handle if conversation initiated with AFK user?
+//
+//        if(e.getAffected().getBase().equals(one)){
+//
+//           afk1 = e.getAffected().isAfk();
+//
+//        }
+//
+//        if(e.getAffected().getBase().equals(two)){
+//            afk2 = e.getAffected().isAfk();
+//        }
+//
+//
+//    }
 
     void update(){
 

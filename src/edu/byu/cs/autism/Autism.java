@@ -3,6 +3,7 @@ package edu.byu.cs.autism;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import edu.byu.cs.autism.CommunicationQuiz.FamilyHint;
+import edu.byu.cs.autism.CommunicationQuiz.Quiz;
 import edu.byu.cs.autism.friend.FriendMiniGameHistory;
 import edu.byu.cs.autism.friend.RelationshipLevel;
 import edu.byu.cs.autism.minigame.Maze;
@@ -28,7 +29,7 @@ public class Autism extends JavaPlugin implements Listener {
 
 
     private final FriendMiniGameHistory friendMiniGameHistory = new FriendMiniGameHistory();
-    RelationshipPH rph;
+//    RelationshipPH rph;
 
     @Override
     public void onEnable() {
@@ -38,7 +39,7 @@ public class Autism extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new PlayerMenu(), this);
         friendMiniGameHistory.load(getDataFolder());
-         rph =  new RelationshipPH(friendMiniGameHistory);
+//         rph =  new RelationshipPH(friendMiniGameHistory);
 //         rph.register();
 
 
@@ -81,8 +82,8 @@ public class Autism extends JavaPlugin implements Listener {
 
 
 
-            rph.setActiveOther(player.getUniqueId().toString(), other.getUniqueId().toString());
-            rph.setActiveOther(other.getUniqueId().toString(), player.getUniqueId().toString());
+//            rph.setActiveOther(player.getUniqueId().toString(), other.getUniqueId().toString());
+//            rph.setActiveOther(other.getUniqueId().toString(), player.getUniqueId().toString());
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ubb reload");
 
             player.getLocation();
@@ -104,7 +105,14 @@ public class Autism extends JavaPlugin implements Listener {
                 player.setGameMode(GameMode.ADVENTURE);
             }
             return true;
-        } else if ("maze".equalsIgnoreCase(command.getName())) {
+        }
+        else if ("quiz".equalsIgnoreCase(command.getName())){
+            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "/say tragger quiz");
+
+            Quiz.handleCommand(sender, command, label, args);
+            return true;
+        }
+        else if ("maze".equalsIgnoreCase(command.getName())) {
             Maze.handleCommand(sender, command, label, args);
             return true;
         } else if ("prompt".equalsIgnoreCase(command.getName())) {
