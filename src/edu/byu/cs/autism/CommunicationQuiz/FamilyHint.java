@@ -27,6 +27,7 @@ public class FamilyHint {
 
     class Hint extends TimerTask{
         public void run(){
+            ////
             Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "msg @a[x=-49,y=56,z=27,dx=10,dy=8,dz=-10] \n\2474Hint:\nTalk about: " + RandomHint());
         }
     }
