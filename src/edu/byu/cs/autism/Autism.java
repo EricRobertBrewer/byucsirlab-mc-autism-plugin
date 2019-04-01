@@ -107,8 +107,7 @@ public class Autism extends JavaPlugin implements Listener {
             return true;
         }
         else if ("quiz".equalsIgnoreCase(command.getName())){
-            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "/say tragger quiz");
-
+//            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "say trigger quiz");
             Quiz.handleCommand(sender, command, label, args);
             return true;
         }

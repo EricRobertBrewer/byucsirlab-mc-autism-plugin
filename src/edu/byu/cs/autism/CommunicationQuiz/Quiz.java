@@ -30,7 +30,7 @@ public class Quiz {
 //            MinecraftServer s = FMLCommonHandler.instance().getMinecraftServerInstance();
 //            s.getCommandManager().executeCommand(s, "/tp " + sender.getName()+ " 755.5 1.0 -1538.5");
 //            s.getCommandManager().executeCommand(s, "/tp " + sender.getName() + " -2.5 57.0 -21.5");
-            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + sender.getName() + " 0, 56, -17");
+            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + sender.getName() + " 0 56 -17");
             //sender.sendMessage(new TextComponentString("/tp " + sender.getName()+ " 755 1 -1539"));
         } else if ("begin".equalsIgnoreCase(args[0])) {
 
@@ -43,13 +43,13 @@ public class Quiz {
             //payer one not assigned and the sender is not player two
             else if (Communication_Quiz.getPlayer_one().isEmpty()) {
                 Communication_Quiz.setPlayer_one(sender.getName());
-                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + sender.getName() + "-47 57 12");
+                getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + sender.getName() + " -47 57 12");
                 sender.sendMessage(ChatColor.BLUE + "You joined the game successfully, waiting for your partner...");
             }
             //player two is not assigned and the sender is not player one
             else if (Communication_Quiz.getPlayer_two().isEmpty()) {
                 Communication_Quiz.setPlayer_two(sender.getName());
-                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + sender.getName() + "-46 57 32");
+                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + sender.getName() + " -46 57 32");
                 sender.sendMessage(ChatColor.BLUE +"You joined the game successfully, waiting for your partner...");
             }
             //both player one and two has been assigned and is not the sender
@@ -148,18 +148,18 @@ public class Quiz {
             if (count_correction >= (int) Math.ceil(size / 2.0)) {
                 p1.sendMessage(ChatColor.BLUE + "Congratulation! You and your partner pass the test");
 //                s.getCommandManager().executeCommand(s, "/tp " + p1.getName() + " -2.5 57.0 -21.5");
-                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + p1.getName() + " 0, 56, -17");
+                getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + p1.getName() + " 0 56 -17");
                 p2.sendMessage(ChatColor.BLUE + "Congratulation! You and your partner pass the test");
 //                s.getCommandManager().executeCommand(s, "/tp " + p2.getName() + " -2.5 57.0 -21.5");
-                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + p2.getName() + "  0, 56, -17");
+                getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + p2.getName() + " 0 56 -17");
 
             } else {
                 p1.sendMessage(ChatColor.BLUE + "Sorry! You and your partner may need to talk more next time");
 //                s.getCommandManager().executeCommand(s, "/tp " + p1.getName() + " -2.5 57.0 -21.5");
-                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + p1.getName() + "  0, 56, -17");
+                getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + p1.getName() + " 0 56 -17");
                 p2.sendMessage(ChatColor.BLUE + "Sorry! You and your partner may need to talk more next time");
 //                s.getCommandManager().executeCommand(s, "/tp " + p2.getName() + " -2.5 57.0 -21.5");
-                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + p2.getName() + "  0, 56, -17");
+                getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + p2.getName() + " 0 56 -17");
 
 
             }

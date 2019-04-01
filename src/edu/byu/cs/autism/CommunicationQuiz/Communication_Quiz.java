@@ -6,19 +6,87 @@ import java.util.Random;
 import java.util.Stack;
 
 public class Communication_Quiz {
-    private static String[] player_one_questions;
-    private static String[] player_two_questions;
-    private static String player_one;
-    private static String player_two;
-    private static String questionA ;
-    private static String questionB ;
-    private static String answer;
-    private static Stack<String> playerA_question;
-    private static Stack<String> playerB_question;
-    private static Stack<String> playerA_answer;
-    private static Stack<String> playerB_answer;
+    private static String[] player_one_questions =new String[] {
+            // Partner
+            "Which city do your partner's parents live in?",
+            "Which city does your partner live in?",
+            "What is your partner's name?",
+            "How many siblings does your partner have?",
+            "Does your partner live with his/her family?",
+            "Does your partner have any children?",
+            "Does your partner have pets?",
+            "Is your partner married?",
+
+            "Do you know what your partner's parents do for work?",
+            "Does your partner have any cousins?",
+            "Do your partner's grandparents live near you?",
+            "What does your partner's family like to do for fun? (List one)",
+            "Is your partner the oldest child in your family?",
+            "Is your partner the youngest child in your family?",
+
+            // You
+            "Which city do your parents live in?",
+            "Which city do you live in?",
+            "What is your name?",
+            "How many siblings do you have?",
+            "Do you live with your family?",
+            "Do you have children?",
+            "Do you have pets?",
+            "Are you married?",
+
+            "Do you know what your parents do for work?",
+            "Do you have any cousins?",
+            "Do your grandparents live near you?",
+            "What does your family like to do for fun? (List one)",
+            "Are you the oldest child in your family?",
+            "Are you the youngest child in your family?"
+    };
+    private static String[] player_two_questions = new String[] {
+            // You
+            "Which city do your parents live in?",
+            "Which city do you live in?",
+            "What is your name?",
+            "How many siblings do you have?",
+            "Do you live with your family?",
+            "Do you have children?",
+            "Do you have pets?",
+            "Are you married?" ,
+
+            "Do you know what your parents do for work?",
+            "Do you have any cousins?",
+            "Do your grandparents live near you?",
+            "What does your family like to do for fun? (List one)",
+            "Are you the oldest child in your family?",
+            "Are you the youngest child in your family?",
+
+            // Partner
+            "Which city do your partner's parents live?",
+            "Which city does your partner live in?",
+            "What is your partner's name?",
+            "How many siblings does your partner have?",
+            "Does your partner live with his/her family?",
+            "Does your partner have children?",
+            "Does your partner have pets?",
+            "Is your partner married?",
+
+            "Do you know what your partner's parents do for work?",
+            "Does your partner have any cousins?",
+            "Do your partner's grandparents live near you?",
+            "What does your partner's family like to do for fun? (List one)",
+            "Is your partner the oldest child in your family?",
+            "Is your partner the youngest child in your family?"
+    };
+    private static String player_one = "";
+    private static String player_two = "";
+    private static String questionA = "" ;
+    private static String questionB = "";
+    private static String answer = "";
+    private static Stack<String> playerA_question = new Stack<>();;
+    private static Stack<String> playerB_question = new Stack<>();;
+    private static Stack<String> playerA_answer = new Stack<>();;
+    private static Stack<String> playerB_answer = new Stack<>();;
     //    private Stack<String> wrongAnswer = new Stack<>();
-    private static List<Integer> questionNum;
+    private static List<Integer> questionNum = new ArrayList<>();
 
     public Communication_Quiz(){
         player_one_questions = new String[] {
