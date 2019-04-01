@@ -89,86 +89,7 @@ public class Communication_Quiz {
     private static List<Integer> questionNum = new ArrayList<>();
 
     public Communication_Quiz(){
-        player_one_questions = new String[] {
-                // Partner
-                "Which city do your partner's parents live in?",
-                "Which city does your partner live in?",
-                "What is your partner's name?",
-                "How many siblings does your partner have?",
-                "Does your partner live with his/her family?",
-                "Does your partner have any children?",
-                "Does your partner have pets?",
-                "Is your partner married?",
 
-                "Do you know what your partner's parents do for work?",
-                "Does your partner have any cousins?",
-                "Do your partner's grandparents live near you?",
-                "What does your partner's family like to do for fun? (List one)",
-                "Is your partner the oldest child in your family?",
-                "Is your partner the youngest child in your family?",
-
-                // You
-                "Which city do your parents live in?",
-                "Which city do you live in?",
-                "What is your name?",
-                "How many siblings do you have?",
-                "Do you live with your family?",
-                "Do you have children?",
-                "Do you have pets?",
-                "Are you married?",
-
-                "Do you know what your parents do for work?",
-                "Do you have any cousins?",
-                "Do your grandparents live near you?",
-                "What does your family like to do for fun? (List one)",
-                "Are you the oldest child in your family?",
-                "Are you the youngest child in your family?"
-        };
-        player_two_questions = new String[] {
-                // You
-                "Which city do your parents live in?",
-                "Which city do you live in?",
-                "What is your name?",
-                "How many siblings do you have?",
-                "Do you live with your family?",
-                "Do you have children?",
-                "Do you have pets?",
-                "Are you married?" ,
-
-                "Do you know what your parents do for work?",
-                "Do you have any cousins?",
-                "Do your grandparents live near you?",
-                "What does your family like to do for fun? (List one)",
-                "Are you the oldest child in your family?",
-                "Are you the youngest child in your family?",
-
-                // Partner
-                "Which city do your partner's parents live?",
-                "Which city does your partner live in?",
-                "What is your partner's name?",
-                "How many siblings does your partner have?",
-                "Does your partner live with his/her family?",
-                "Does your partner have children?",
-                "Does your partner have pets?",
-                "Is your partner married?",
-
-                "Do you know what your partner's parents do for work?",
-                "Does your partner have any cousins?",
-                "Do your partner's grandparents live near you?",
-                "What does your partner's family like to do for fun? (List one)",
-                "Is your partner the oldest child in your family?",
-                "Is your partner the youngest child in your family?"
-        };
-        player_one = "";
-        player_two = "";
-        questionA = "";
-        questionB = "";
-        answer = "";
-        playerA_answer = new Stack<>();
-        playerB_answer = new Stack<>();
-        playerA_question = new Stack<>();
-        playerB_question = new Stack<>();
-        questionNum = new ArrayList<>();
     }
 
     public static void clearEverything() {
@@ -213,24 +134,24 @@ public class Communication_Quiz {
         return questionA;
     }
 
-    public static void setQuestionA(String questionA) {
-        questionA = questionA;
+    public static void setQuestionA(String question) {
+        questionA = question;
     }
 
     public static String getQuestionB() {
         return questionB;
     }
 
-    public static void setQuestionB(String questionB) {
-        questionB = questionB;
+    public static void setQuestionB(String question) {
+        questionB = question;
     }
 
     public static String getAnswer() {
         return answer;
     }
 
-    public static void setAnswer(String answer) {
-        answer = answer;
+    public static void setAnswer(String answers) {
+        answer = answers;
     }
 
     public static Stack<String> getPlayerA_question() {

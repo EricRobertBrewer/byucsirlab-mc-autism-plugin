@@ -25,12 +25,18 @@ public class Quiz {
         }
 
         if ("quit".equalsIgnoreCase(args[0])) {
+            if(!Communication_Quiz.getPlayer_one().isEmpty()){
+                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + Communication_Quiz.getPlayer_one() + " 0 56 -17");
+            }
+            if(!Communication_Quiz.getPlayer_two().isEmpty()){
+                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + Communication_Quiz.getPlayer_two() + " 0 56 -17");
+            }
             Communication_Quiz.clearEverything();
             // Minecraft.getMinecraft().world.getPlayerEntityByName(sender.getName()).setPositionAndUpdate(-3, 56, -19);
 //            MinecraftServer s = FMLCommonHandler.instance().getMinecraftServerInstance();
 //            s.getCommandManager().executeCommand(s, "/tp " + sender.getName()+ " 755.5 1.0 -1538.5");
 //            s.getCommandManager().executeCommand(s, "/tp " + sender.getName() + " -2.5 57.0 -21.5");
-            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + sender.getName() + " 0 56 -17");
+//            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + sender.getName() + " 0 56 -17");
             //sender.sendMessage(new TextComponentString("/tp " + sender.getName()+ " 755 1 -1539"));
         } else if ("begin".equalsIgnoreCase(args[0])) {
 
@@ -45,6 +51,7 @@ public class Quiz {
                 Communication_Quiz.setPlayer_one(sender.getName());
                 getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + sender.getName() + " -47 57 12");
                 sender.sendMessage(ChatColor.BLUE + "You joined the game successfully, waiting for your partner...");
+
             }
             //player two is not assigned and the sender is not player one
             else if (Communication_Quiz.getPlayer_two().isEmpty()) {
@@ -128,9 +135,9 @@ public class Quiz {
         Communication_Quiz.setPlayerB_question(Communication_Quiz.getQuestionB());
 
         if (p1 != null && p2 != null) {
-            p1.sendMessage(ChatColor.BLUE +"QUESTION: " + Communication_Quiz.getQuestionA() + "\n type \'\\quiz answer [your answer]\' to answer the question");
+            p1.sendMessage(ChatColor.BLUE +"QUESTION: " + ChatColor.RED + Communication_Quiz.getQuestionA() + ChatColor.BLUE+"\n type \'\\quiz answer [your answer]\' to answer the question");
 
-            p2.sendMessage(ChatColor.BLUE +"QUESTION: " + Communication_Quiz.getQuestionB() + "\n type \'\\quiz answer [your answer]\' to answer the question");
+            p2.sendMessage(ChatColor.BLUE +"QUESTION: " +ChatColor.RED +  Communication_Quiz.getQuestionB() + ChatColor.BLUE+"\n type \'\\quiz answer [your answer]\' to answer the question");
         }
     }
 
