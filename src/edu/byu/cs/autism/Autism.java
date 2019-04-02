@@ -2,6 +2,8 @@ package edu.byu.cs.autism;
 
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import edu.byu.cs.autism.CommunicationQuiz.FamilyHint;
+import edu.byu.cs.autism.CommunicationQuiz.Quiz;
 import edu.byu.cs.autism.friend.FriendMiniGameHistory;
 import edu.byu.cs.autism.friend.RelationshipLevel;
 import edu.byu.cs.autism.minigame.Maze;
@@ -32,6 +34,9 @@ public class Autism extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        FamilyHint family_hint = new FamilyHint();
+        family_hint.popHint();
+
 
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(playerMenu, this);
@@ -101,7 +106,13 @@ public class Autism extends JavaPlugin implements Listener {
                 player.setGameMode(GameMode.ADVENTURE);
             }
             return true;
-        } else if ("maze".equalsIgnoreCase(command.getName())) {
+        }
+        else if ("quiz".equalsIgnoreCase(command.getName())){
+//            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "say trigger quiz");
+            Quiz.handleCommand(sender, command, label, args);
+            return true;
+        }
+        else if ("maze".equalsIgnoreCase(command.getName())) {
             Maze.handleCommand(sender, command, label, args);
             return true;
         } else if ("prompt".equalsIgnoreCase(command.getName())) {
