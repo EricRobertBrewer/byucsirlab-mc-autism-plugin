@@ -5,7 +5,6 @@ import com.sun.net.httpserver.HttpServer;
 import edu.byu.cs.autism.CommunicationQuiz.FamilyHint;
 import edu.byu.cs.autism.CommunicationQuiz.Quiz;
 import edu.byu.cs.autism.friend.FriendMiniGameHistory;
-import edu.byu.cs.autism.friend.RelationshipLevel;
 import edu.byu.cs.autism.minigame.Maze;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -20,16 +19,12 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.net.InetSocketAddress;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Autism extends JavaPlugin implements Listener {
 
-
-
-
     private final FriendMiniGameHistory friendMiniGameHistory = new FriendMiniGameHistory();
-//    RelationshipPH rph;
+    RelationshipPH rph;
+    private final PlayerMenu playerMenu = new PlayerMenu();
 
     @Override
     public void onEnable() {
@@ -37,7 +32,7 @@ public class Autism extends JavaPlugin implements Listener {
         family_hint.popHint();
 
         getServer().getPluginManager().registerEvents(this, this);
-        getServer().getPluginManager().registerEvents(new PlayerMenu(), this);
+        getServer().getPluginManager().registerEvents(playerMenu, this);
         friendMiniGameHistory.load(getDataFolder());
 //         rph =  new RelationshipPH(friendMiniGameHistory);
 //         rph.register();
@@ -65,9 +60,9 @@ public class Autism extends JavaPlugin implements Listener {
         final Entity entity = e.getRightClicked();
         if (entity instanceof Player) {
             final Player other = (Player) entity;
-            new PlayerMenu().openMenu(player, other);
+            playerMenu.openMenu(player, other);
             //player.sendMessage("I click the player " + other.getDisplayName());
-            other.sendMessage("You were clicked on by " + e.getPlayer().getDisplayName());
+//            other.sendMessage("You were clicked on by " + e.getPlayer().getDisplayName());
 
             /*
             if(EyeContact.eyeContact(player, other)){

@@ -7,6 +7,8 @@ commands:
     description: create a new quiz.
   spawn:
     description: Return to the global spawn point.
+  quiz:
+    description: create a new quiz.
   maze:
     description: Create a maze in the main world.
   prompt:

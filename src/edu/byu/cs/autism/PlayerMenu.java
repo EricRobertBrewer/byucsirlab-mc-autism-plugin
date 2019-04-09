@@ -62,7 +62,7 @@ public class PlayerMenu implements Listener {
     @EventHandler
     private void onMenuOptionClicked(InventoryClickEvent e) {
         if (e.getCurrentItem().getItemMeta().getDisplayName().equals(title_option1)) {
-            e.getWhoClicked().sendMessage("I clicked " + title_option1);
+//            e.getWhoClicked().sendMessage("I clicked " + title_option1);
             e.getWhoClicked().closeInventory();
         }
         else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(title_option2)) {
@@ -77,16 +77,16 @@ public class PlayerMenu implements Listener {
             Bukkit.getLogger().log(Level.INFO, "POST: " + me.getDisplayName() );
             Bukkit.getLogger().log(Level.INFO, "POST: "  + you.getDisplayName() );
 
-            Conversation.add(me, you);
-            e.getWhoClicked().sendMessage("I clicked " + title_option2);
+//            Conversation.add(me, you);
+//            e.getWhoClicked().sendMessage("I clicked " + title_option2);
             e.getWhoClicked().closeInventory();
         }
         else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(title_option3)) {
-            e.getWhoClicked().sendMessage(title_option3);
+//            e.getWhoClicked().sendMessage(title_option3);
             e.getWhoClicked().closeInventory();
         }
         else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(title_option4)) {
-            e.getWhoClicked().sendMessage(title_option4);
+//            e.getWhoClicked().sendMessage(title_option4);
             e.getWhoClicked().closeInventory();
         }
     }
