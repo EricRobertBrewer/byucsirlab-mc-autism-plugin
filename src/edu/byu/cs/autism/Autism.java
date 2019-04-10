@@ -2,8 +2,13 @@ package edu.byu.cs.autism;
 
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import com.sun.xml.internal.bind.v2.TODO;
 import edu.byu.cs.autism.CommunicationQuiz.FamilyHint;
 import edu.byu.cs.autism.CommunicationQuiz.Quiz;
+import edu.byu.cs.autism.Time_stamp.Game;
+import edu.byu.cs.autism.Time_stamp.IncermentPlayTime;
+import edu.byu.cs.autism.Time_stamp.PlayTimeRecord;
+import edu.byu.cs.autism.Time_stamp.SaveData;
 import edu.byu.cs.autism.friend.FriendMiniGameHistory;
 import edu.byu.cs.autism.minigame.Maze;
 import org.bukkit.Bukkit;
@@ -20,15 +25,19 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.net.InetSocketAddress;
 
+import static edu.byu.cs.autism.Time_stamp.IncermentPlayTime.playersInGame;
+
 public class Autism extends JavaPlugin implements Listener {
 
     private final FriendMiniGameHistory friendMiniGameHistory = new FriendMiniGameHistory();
+    private final FamilyHint family_hint = new FamilyHint();
+    private final IncermentPlayTime incermentPlayTime = new IncermentPlayTime();
+    private final SaveData saveData = new SaveData();
     RelationshipPH rph;
     private final PlayerMenu playerMenu = new PlayerMenu();
 
     @Override
     public void onEnable() {
-        FamilyHint family_hint = new FamilyHint();
         family_hint.popHint();
 
         getServer().getPluginManager().registerEvents(this, this);
@@ -51,6 +60,8 @@ public class Autism extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
+        // TODO Save Data
+        saveData.saveBeforeShutDown();
         friendMiniGameHistory.save(getDataFolder());
     }
 
@@ -99,7 +110,19 @@ public class Autism extends JavaPlugin implements Listener {
             if (!player.isOp()) {
                 player.setGameMode(GameMode.ADVENTURE);
             }
+//            TODO save data for time stamp
+            for (Game i : playersInGame){
+                if (i.getPlayerName().equals(player)){
+                    // TODO save the data
+//                    count how long the user played
+//                    LocalTime playedHowLong = java.time.LocalTime.now() - time;
+                    playersInGame.remove(i);
+                }
+            }
             return true;
+        }
+        else if("count".equalsIgnoreCase(command.getName())){
+
         }
         else if ("quiz".equalsIgnoreCase(command.getName())){
 //            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "say trigger quiz");

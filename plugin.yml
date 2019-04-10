@@ -3,10 +3,10 @@ description: BYU CS Autism server autism.
 version: 0.0.1
 main: edu.byu.cs.autism.Autism
 commands:
-  quiz:
-    description: create a new quiz.
   spawn:
     description: Return to the global spawn point.
+  count:
+    description: count how many times each game has been played
   quiz:
     description: create a new quiz.
   maze:
