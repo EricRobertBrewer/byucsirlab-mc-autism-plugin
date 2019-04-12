@@ -13,8 +13,9 @@ import static edu.byu.cs.autism.Time_stamp.IncermentPlayTime.*;
 
 public class PlayTimeRecord {
     public static void handleCommand(JavaPlugin plugin, CommandSender sender, Command command, String label, String[] args) {
-        if(args.length != 3) {
+        if (args.length != 3) {
             sender.sendMessage("[Count] Usage: /count <game> <status> <player>");
+            return;
         }
         if (plugin.getServer().getPlayer(args[2]) == null) {
             sender.sendMessage("Unable to find player with name `" + args[2] + "`.");
@@ -41,15 +42,23 @@ public class PlayTimeRecord {
             sender.sendMessage("Wrong status, [usage]: enter/leave");
         }
     }
-    public static void Leave(String p){
+    public static void Leave(String p) {
         Instant end = Instant.now();
+        Game game = getGameWithPlayer(p);
+        if (game != null) {
+            long timeElapsed = Duration.between(game.getEnterTime(), end).toMinutes();
+            game.setTimeElapsed(timeElapsed);
+            SwatchCaseForLeave(game);
+        }
+    }
+
+    static Game getGameWithPlayer(String p) {
         for (Game i : playersInGame) {
             if (i.getPlayerName().equals(p)) {
-                Long timeElapsed = Duration.between(i.getEnterTime(), end).toMinutes();
-                i.setTimeElapsed(timeElapsed);
-                SwatchCaseForLeave(i);
+                return i;
             }
         }
+        return null;
     }
     private static void SwatchCaseForLeave(Game i){
         switch (i.getGameName()){

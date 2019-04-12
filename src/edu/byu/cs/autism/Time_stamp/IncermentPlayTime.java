@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IncermentPlayTime {
-    public static List<Game> playersInGame;
+    public static List<Game> playersInGame = new ArrayList<>();
 
     public static List<Game> roleplay_analyse = new ArrayList<>();
     public static List<Game> communication_analyse = new ArrayList<>();
