@@ -1,13 +1,15 @@
 package edu.byu.cs.autism.Time_stamp;
 
+import java.time.Instant;
 import java.time.LocalTime;
 
 public class Game {
     private String gameName;
     private String playerName;
-    private LocalTime enterTime;
+    private Instant enterTime;
+    private Long timeElapsed;
 
-    public Game(String gameName, String playerName, LocalTime enterTime){
+    public Game(String gameName, String playerName, Instant enterTime){
         this.enterTime = enterTime;
         this.gameName = gameName;
         this.playerName = playerName;
@@ -29,11 +31,19 @@ public class Game {
         this.playerName = playerName;
     }
 
-    public LocalTime getEnterTime() {
+    public Instant getEnterTime() {
         return enterTime;
     }
 
-    public void setEnterTime(LocalTime enterTime) {
+    public void setEnterTime(Instant enterTime) {
         this.enterTime = enterTime;
+    }
+
+    public Long getTimeElapsed() {
+        return timeElapsed;
+    }
+
+    public void setTimeElapsed(Long timeElapsed) {
+        this.timeElapsed = timeElapsed;
     }
 }

@@ -20,12 +20,16 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.net.InetSocketAddress;
+import java.time.Duration;
+import java.time.Instant;
 
 import static edu.byu.cs.autism.Time_stamp.IncermentPlayTime.playersInGame;
+import static edu.byu.cs.autism.Time_stamp.SaveData.saveBeforeShutDown;
 
 public class Autism extends JavaPlugin implements Listener {
 
@@ -61,8 +65,14 @@ public class Autism extends JavaPlugin implements Listener {
     @Override
     public void onDisable() {
         // TODO Save Data
-        saveData.saveBeforeShutDown();
+        SaveData.saveBeforeShutDown();
         friendMiniGameHistory.save(getDataFolder());
+    }
+
+    @EventHandler
+    private void onPlayerDeath (PlayerDeathEvent e){
+        final Player player = e.getEntity();
+        PlayTimeRecord.Leave(player.getDisplayName());
     }
 
     @EventHandler
@@ -110,19 +120,13 @@ public class Autism extends JavaPlugin implements Listener {
             if (!player.isOp()) {
                 player.setGameMode(GameMode.ADVENTURE);
             }
-//            TODO save data for time stamp
-            for (Game i : playersInGame){
-                if (i.getPlayerName().equals(player)){
-                    // TODO save the data
-//                    count how long the user played
-//                    LocalTime playedHowLong = java.time.LocalTime.now() - time;
-                    playersInGame.remove(i);
-                }
-            }
+//Time stamp
+            PlayTimeRecord.Leave(player.getDisplayName());
+
             return true;
         }
         else if("count".equalsIgnoreCase(command.getName())){
-
+            PlayTimeRecord.handleCommand(this, sender, command, label, args);
         }
         else if ("quiz".equalsIgnoreCase(command.getName())){
 //            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "say trigger quiz");

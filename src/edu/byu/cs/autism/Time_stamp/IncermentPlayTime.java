@@ -5,18 +5,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IncermentPlayTime {
-    protected static int roleplay = 0;
-    protected static int communication = 0;
-    protected static int T_bridge = 0;
-    protected static int team_tunnel = 0;
-    protected static int multiplayer_maze = 0;
-    protected static int makefriend = 0;
-    protected static int zombie_maze = 0;
-    protected static int voice = 0;
-    protected static int Jim_world = 0;
-    protected static int creative = 0;
-    protected static int survival = 0;
+    public static List<Game> playersInGame;
 
-    public static List<Game> playersInGame = new ArrayList<>();
+    public static List<Game> roleplay_analyse = new ArrayList<>();
+    public static List<Game> communication_analyse = new ArrayList<>();
+    public static List<Game> T_bridge_analyse = new ArrayList<>();
+    public static List<Game> team_tunnel_analyse = new ArrayList<>();
+    public static List<Game> multiplayer_maze_analyse = new ArrayList<>();
+    public static List<Game> makefriend_analyse = new ArrayList<>();
+    public static List<Game> zombie_maze_analyse = new ArrayList<>();
+    public static List<Game> voice_analyse = new ArrayList<>();
+    public static List<Game> Jim_world_analyse = new ArrayList<>();
+    public static List<Game> creative_analyse = new ArrayList<>();
+    public static List<Game> survival_analyse = new ArrayList<>();
+
+    public static List<Game> other_games = new ArrayList<>();
+
+    public static Long totalGamePlayed = Long.valueOf(0);
+
+    public IncermentPlayTime(){
+//        playersInGame = new ArrayList<>();
+//        roleplay_analyse = new ArrayList<>();
+//        communication_analyse = new ArrayList<>();
+//        T_bridge_analyse = new ArrayList<>();
+//        team_tunnel_analyse = new ArrayList<>();
+//        multiplayer_maze_analyse = new ArrayList<>();
+//        makefriend_analyse = new ArrayList<>();
+//        zombie_maze_analyse = new ArrayList<>();
+//        voice_analyse = new ArrayList<>();
+//        Jim_world_analyse = new ArrayList<>();
+//        creative_analyse = new ArrayList<>();
+//        survival_analyse = new ArrayList<>();
+//        other_games = new ArrayList<>();
+    }
 
 }
