@@ -65,7 +65,7 @@ public class Autism extends JavaPlugin implements Listener {
     @Override
     public void onDisable() {
         // TODO Save Data
-        SaveData.saveBeforeShutDown();
+        SaveData.saveBeforeShutDown(getDataFolder());
         friendMiniGameHistory.save(getDataFolder());
     }
 
