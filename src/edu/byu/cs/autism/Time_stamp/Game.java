@@ -9,6 +9,12 @@ public class Game {
     private Instant enterTime;
     private Long timeElapsed;
 
+    public Game(Game it){
+        gameName = it.getGameName();
+        playerName = it.getPlayerName();
+        enterTime = it.enterTime;
+
+    }
     public Game(String gameName, String playerName, Instant enterTime){
         this.enterTime = enterTime;
         this.gameName = gameName;

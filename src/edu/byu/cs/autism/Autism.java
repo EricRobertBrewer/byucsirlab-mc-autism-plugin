@@ -22,14 +22,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.net.InetSocketAddress;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.logging.Level;
 
 import static edu.byu.cs.autism.Time_stamp.IncermentPlayTime.playersInGame;
 import static edu.byu.cs.autism.Time_stamp.SaveData.saveBeforeShutDown;
+import static org.bukkit.Bukkit.getServer;
 
 public class Autism extends JavaPlugin implements Listener {
 
@@ -37,6 +40,7 @@ public class Autism extends JavaPlugin implements Listener {
     private final FamilyHint family_hint = new FamilyHint();
     private final IncermentPlayTime incermentPlayTime = new IncermentPlayTime();
     private final SaveData saveData = new SaveData();
+
     RelationshipPH rph;
     private final PlayerMenu playerMenu = new PlayerMenu();
 
@@ -70,9 +74,18 @@ public class Autism extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    private void onPlayerDeath (PlayerDeathEvent e){
-        final Player player = e.getEntity();
-        PlayTimeRecord.Leave(player.getDisplayName());
+    public void onDeath (PlayerDeathEvent e){
+        Player player = e.getEntity();
+        String p = player.getName();
+        Bukkit.getLogger().log(Level.INFO,p);
+
+        PlayTimeRecord.Leave(p);
+
+    }
+    @EventHandler
+    public void onLogout (PlayerQuitEvent e){
+        Player player = e.getPlayer();
+        getServer().dispatchCommand(player,  "spawn");
     }
 
     @EventHandler
@@ -121,12 +134,13 @@ public class Autism extends JavaPlugin implements Listener {
                 player.setGameMode(GameMode.ADVENTURE);
             }
 //Time stamp
-            PlayTimeRecord.Leave(player.getDisplayName());
+            PlayTimeRecord.Leave(sender.getName());
 
             return true;
         }
         else if("count".equalsIgnoreCase(command.getName())){
             PlayTimeRecord.handleCommand(this, sender, command, label, args);
+            return true;
         }
         else if ("quiz".equalsIgnoreCase(command.getName())){
 //            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "say trigger quiz");

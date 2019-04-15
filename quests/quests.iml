@@ -18,8 +18,8 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="library" name="Quests-3.4.6" level="project" />
     <orderEntry type="library" name="spigot-1.12.2" level="project" />
     <orderEntry type="library" name="PlaceholderAPI-2.9.1" level="project" />
+    <orderEntry type="library" name="Quests-3.4.6" level="project" />
   </component>
 </module>

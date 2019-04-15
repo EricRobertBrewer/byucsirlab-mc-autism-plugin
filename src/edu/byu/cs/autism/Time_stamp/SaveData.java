@@ -8,6 +8,10 @@ public class SaveData {
     public SaveData(){
 
     }
+
+    public static void createFile(File dataFolder){
+
+    }
     public static void saveBeforeShutDown(File dataFolder){
           ///////////////////////////////////////////////////////////////////
          //REMEBER to change the file path when change the server location//
@@ -15,7 +19,7 @@ public class SaveData {
         File file = new File(dataFolder,"PlayLog");
         FileWriter fr = null;
         try {
-            fr = new FileWriter(file);
+            fr = new FileWriter(file, true);
 
             fr.write("Total Games That Have Been Played: " + IncermentPlayTime.totalGamePlayed + "\r\n");
             fr.write("Roleplay Game: (" + IncermentPlayTime.roleplay_analyse.size()+ " times)\r\n");

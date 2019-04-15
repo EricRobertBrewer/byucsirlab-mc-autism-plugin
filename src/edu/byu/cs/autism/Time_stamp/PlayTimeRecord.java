@@ -55,9 +55,11 @@ public class PlayTimeRecord {
     static Game getGameWithPlayer(String p) {
         for (Game i : playersInGame) {
             if (i.getPlayerName().equals(p)) {
+
                 return i;
             }
         }
+
         return null;
     }
     private static void SwatchCaseForLeave(Game i){
