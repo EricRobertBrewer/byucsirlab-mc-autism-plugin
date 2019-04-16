@@ -39,4 +39,8 @@ public class IncermentPlayTime {
 //        other_games = new ArrayList<>();
     }
 
+    public static void clear(){
+
+    }
+
 }

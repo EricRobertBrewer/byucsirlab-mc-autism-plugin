@@ -1,5 +1,6 @@
 package edu.byu.cs.autism.CommunicationQuiz;
 
+import edu.byu.cs.autism.Time_stamp.PlayTimeRecord;
 import net.minecraft.server.v1_12_R1.EntityPlayer;
 import net.minecraft.server.v1_12_R1.MinecraftServer;
 import org.bukkit.Bukkit;
@@ -26,9 +27,11 @@ public class Quiz {
 
         if ("quit".equalsIgnoreCase(args[0])) {
             if(!Communication_Quiz.getPlayer_one().isEmpty()){
+                PlayTimeRecord.Leave(Communication_Quiz.getPlayer_one());
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + Communication_Quiz.getPlayer_one() + " 0 56 -17");
             }
             if(!Communication_Quiz.getPlayer_two().isEmpty()){
+                PlayTimeRecord.Leave(Communication_Quiz.getPlayer_two());
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "tp " + Communication_Quiz.getPlayer_two() + " 0 56 -17");
             }
             Communication_Quiz.clearEverything();
@@ -170,7 +173,8 @@ public class Quiz {
 
 
             }
-
+            PlayTimeRecord.Leave(p1.getName());
+            PlayTimeRecord.Leave(p2.getName());
             Communication_Quiz.clearEverything();
         }
         return over;
