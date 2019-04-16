@@ -25,6 +25,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.net.InetSocketAddress;
 import java.time.Duration;
 import java.time.Instant;
@@ -47,6 +48,7 @@ public class Autism extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         family_hint.popHint();
+        family_hint.TimerForData(getDataFolder());
 
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(playerMenu, this);
@@ -77,8 +79,6 @@ public class Autism extends JavaPlugin implements Listener {
     public void onDeath (PlayerDeathEvent e){
         Player player = e.getEntity();
         String p = player.getName();
-        Bukkit.getLogger().log(Level.INFO,p);
-
         PlayTimeRecord.Leave(p);
 
     }
@@ -179,4 +179,5 @@ public class Autism extends JavaPlugin implements Listener {
 
         return super.onCommand(sender, command, label, args);
     }
+
 }

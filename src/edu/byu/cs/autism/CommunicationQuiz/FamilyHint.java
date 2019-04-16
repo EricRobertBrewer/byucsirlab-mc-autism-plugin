@@ -1,5 +1,8 @@
 package edu.byu.cs.autism.CommunicationQuiz;
 
+import edu.byu.cs.autism.Autism;
+import edu.byu.cs.autism.Time_stamp.IncermentPlayTime;
+import edu.byu.cs.autism.Time_stamp.SaveData;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
@@ -7,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.awt.*;
+import java.io.File;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,7 +19,7 @@ import static org.bukkit.Bukkit.getServer;
 
 public class FamilyHint {
     Timer timer;
-
+    Timer data_timer;
 
     private static String[] hintArray_family = {"NAME", "AGE", "Where is he/she from", "Family Memebers", "PETS", "SIBILINGS", "COUSINS", "Things to do with family"};
 
@@ -29,6 +33,25 @@ public class FamilyHint {
         int index = rand.nextInt(hintArray_family.length);
         return hintArray_family[index];
 
+    }
+
+    public void TimerForData(File file){
+        data_timer = new Timer();
+        data_timer.schedule(new AutoSaveData(file), 0, 3 * 60 * 60 * 1000 );
+    }
+
+    class AutoSaveData extends TimerTask {
+        private final File file;
+
+        AutoSaveData ( File file )
+        {
+            this.file = file;
+        }
+
+        public void run(){
+            SaveData.saveBeforeShutDown(this.file);
+            IncermentPlayTime.Clear();
+        }
     }
 
     class Hint extends TimerTask {

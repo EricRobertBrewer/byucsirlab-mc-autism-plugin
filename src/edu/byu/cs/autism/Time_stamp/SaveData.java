@@ -8,10 +8,6 @@ public class SaveData {
     public SaveData(){
 
     }
-
-    public static void createFile(File dataFolder){
-
-    }
     public static void saveBeforeShutDown(File dataFolder){
           ///////////////////////////////////////////////////////////////////
          //REMEBER to change the file path when change the server location//
