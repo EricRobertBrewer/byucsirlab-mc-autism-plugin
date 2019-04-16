@@ -39,8 +39,24 @@ public class IncermentPlayTime {
 //        other_games = new ArrayList<>();
     }
 
-    public static void clear(){
+    public static void Clear(){
+        playersInGame.clear();
 
+        roleplay_analyse.clear();
+        communication_analyse.clear();
+        T_bridge_analyse.clear();
+        team_tunnel_analyse.clear();
+        multiplayer_maze_analyse.clear();
+        makefriend_analyse.clear();
+        zombie_maze_analyse.clear();
+        voice_analyse.clear();
+        Jim_world_analyse.clear();
+        creative_analyse.clear();
+        survival_analyse.clear();
+
+        other_games.clear();
+
+        totalGamePlayed = Long.valueOf(0);
     }
 
 }
