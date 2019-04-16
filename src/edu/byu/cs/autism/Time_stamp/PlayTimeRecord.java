@@ -1,8 +1,10 @@
 package edu.byu.cs.autism.Time_stamp;
 
+import edu.byu.cs.autism.CommunicationQuiz.Communication_Quiz;
 import edu.byu.cs.autism.minigame.Minigames;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.time.Duration;
@@ -10,6 +12,7 @@ import java.time.Instant;
 import java.time.LocalTime;
 
 import static edu.byu.cs.autism.Time_stamp.IncermentPlayTime.*;
+import static org.bukkit.Bukkit.getServer;
 
 public class PlayTimeRecord {
     public static void handleCommand(JavaPlugin plugin, CommandSender sender, Command command, String label, String[] args) {
@@ -30,6 +33,20 @@ public class PlayTimeRecord {
 
         // Enter a new game
         if (args[1].equalsIgnoreCase("enter")) {
+
+            for(Game i : playersInGame){
+                //if the sender didn't leave from other games, kick him out
+                if (i.getPlayerName().equals(p)){
+                    Leave(p);
+                }
+                //if other players in the current game, kick them out
+                if(i.getGameName().equals(game)){
+                    Player otherPlayerInGame = getServer().getPlayer(i.getPlayerName());
+                    otherPlayerInGame.sendMessage("Other players want to play " + i.getGameName() + ", try some other games");
+                    getServer().dispatchCommand(otherPlayerInGame,  "spawn");
+                    Leave(i.getPlayerName());
+                }
+            }
             Game enterGame = new Game(game, p, start);
             playersInGame.add(enterGame);
             totalGamePlayed++;
@@ -52,14 +69,12 @@ public class PlayTimeRecord {
         }
     }
 
-    static Game getGameWithPlayer(String p) {
+    private static Game getGameWithPlayer(String p) {
         for (Game i : playersInGame) {
             if (i.getPlayerName().equals(p)) {
-
                 return i;
             }
         }
-
         return null;
     }
     private static void SwatchCaseForLeave(Game i){
