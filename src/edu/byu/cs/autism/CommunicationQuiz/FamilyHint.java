@@ -37,7 +37,7 @@ public class FamilyHint {
 
     public void TimerForData(File file){
         data_timer = new Timer();
-        data_timer.schedule(new AutoSaveData(file), 0, 3 * 60 * 60 * 1000 );
+        data_timer.schedule(new AutoSaveData(file), 0, 3 * 60 * 60 * 1000 );//try half an hour
     }
 
     class AutoSaveData extends TimerTask {
