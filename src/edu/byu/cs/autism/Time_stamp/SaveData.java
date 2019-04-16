@@ -18,7 +18,7 @@ public class SaveData {
         Instant t = Instant.now();
         try {
             fr = new FileWriter(file, true);
-            fr.write("\n Data saved at " + t + "\r\n");
+            fr.write("Data saved at " + t + "\r\n");
             fr.write("Total Games That Have Been Played: " + IncermentPlayTime.totalGamePlayed + "\r\n");
             fr.write("Roleplay Game: (" + IncermentPlayTime.roleplay_analyse.size()+ " times)\r\n");
             for(Game i : IncermentPlayTime.roleplay_analyse){
@@ -84,6 +84,7 @@ public class SaveData {
             for(Game i : IncermentPlayTime.playersInGame){
                 fr.write("Player: " + i.getPlayerName() + "\tTime Started: " + i.getEnterTime()+ "\tGame: " + i.getGameName() + "\tEntered time: " + i.getEnterTime() + " minutes\r\n");
             }
+            fr.write("\n");
         } catch (IOException e) {
             e.printStackTrace();
         }finally{

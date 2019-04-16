@@ -27,26 +27,41 @@ public class PlayTimeRecord {
         //get game name
         String game = args[0];
         // Get player name.
-        String p = args[2];
+        String p = plugin.getServer().getPlayer(args[2]).getName();
         //time
         Instant start = Instant.now();
 
         // Enter a new game
         if (args[1].equalsIgnoreCase("enter")) {
 
-            for(Game i : playersInGame){
-                //if the sender didn't leave from other games, kick him out
-                if (i.getPlayerName().equals(p)){
-                    Leave(p);
-                }
-                //if other players in the current game, kick them out
-                if(i.getGameName().equals(game)){
-                    Player otherPlayerInGame = getServer().getPlayer(i.getPlayerName());
-                    otherPlayerInGame.sendMessage("Other players want to play " + i.getGameName() + ", try some other games");
-                    getServer().dispatchCommand(otherPlayerInGame,  "spawn");
-                    Leave(i.getPlayerName());
-                }
-            }
+//            for(Game i : playersInGame){
+//                //if the sender didn't leave from other games, kick him out
+//                if (i.getPlayerName().equals(p)){
+//                    Leave(p);
+//                }
+//                //if other players in the current game, kick them out
+//                if(i.getGameName().equals(game)){
+//                    Player otherPlayerInGame = getServer().getPlayer(i.getPlayerName());
+//                    otherPlayerInGame.sendMessage("Other players want to play " + i.getGameName() + ", try some other games");
+//                    getServer().dispatchCommand(otherPlayerInGame,  "spawn");
+//                    Game g = getGameWithPlayer(i.getPlayerName());
+//                    Leave(g.getPlayerName());
+//                }
+//            }
+            Game g = getGameWithPlayer(p);
+           if( g != null){
+               Leave(p);
+           }
+
+//            Game g1 = getGameWithGameName(game);
+//           if(g1 != null){
+//               Player otherPlayerInGame = getServer().getPlayer(g1.getPlayerName());
+//               otherPlayerInGame.sendMessage("Other players want to play " + g1.getGameName() + ", try some other games");
+//               getServer().dispatchCommand(otherPlayerInGame,  "spawn");
+//               Leave(g1.getPlayerName());
+//
+//           }
+
             Game enterGame = new Game(game, p, start);
             playersInGame.add(enterGame);
             totalGamePlayed++;
@@ -72,6 +87,14 @@ public class PlayTimeRecord {
     private static Game getGameWithPlayer(String p) {
         for (Game i : playersInGame) {
             if (i.getPlayerName().equals(p)) {
+                return i;
+            }
+        }
+        return null;
+    }
+    private static Game getGameWithGameName(String g) {
+        for (Game i : playersInGame) {
+            if (i.getGameName().equals(g)) {
                 return i;
             }
         }
