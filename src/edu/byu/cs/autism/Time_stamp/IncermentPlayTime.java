@@ -40,8 +40,6 @@ public class IncermentPlayTime {
     }
 
     public static void Clear(){
-        playersInGame.clear();
-
         roleplay_analyse.clear();
         communication_analyse.clear();
         T_bridge_analyse.clear();
