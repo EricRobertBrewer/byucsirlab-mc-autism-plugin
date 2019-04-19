@@ -80,6 +80,7 @@ public class Autism extends JavaPlugin implements Listener {
         Player player = e.getEntity();
         String p = player.getName();
         PlayTimeRecord.Leave(p);
+        getServer().dispatchCommand(player,  "spawn");
 
     }
     @EventHandler
