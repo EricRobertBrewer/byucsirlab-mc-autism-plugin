@@ -79,8 +79,8 @@ public class Autism extends JavaPlugin implements Listener {
     public void onDeath (PlayerDeathEvent e){
         Player player = e.getEntity();
         String p = player.getName();
-        PlayTimeRecord.Leave(p);
-
+//        PlayTimeRecord.Leave(p);
+        getServer().dispatchCommand(player,  "spawn");
     }
     @EventHandler
     public void onLogout (PlayerQuitEvent e){
