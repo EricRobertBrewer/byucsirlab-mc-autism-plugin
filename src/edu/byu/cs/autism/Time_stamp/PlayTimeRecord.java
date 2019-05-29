@@ -27,7 +27,8 @@ public class PlayTimeRecord {
         //get game name
         String game = args[0];
         // Get player name.
-        String p = plugin.getServer().getPlayer(args[2]).getName();
+        String pp = plugin.getServer().getPlayer(args[2]).getName();
+        String p = Register.users.get(pp);
         //time
         Instant start = Instant.now();
 

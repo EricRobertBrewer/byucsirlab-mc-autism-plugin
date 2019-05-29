@@ -23,4 +23,8 @@ commands:
     description: Gives location of eye and player's location
   testConversations:
     description: Ticks for conversations
+  tellServer:
+    description: Prints message on server
+  register:
+    description: Associates username with id for a session
 

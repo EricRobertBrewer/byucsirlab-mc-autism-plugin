@@ -5,10 +5,7 @@ import com.sun.net.httpserver.HttpServer;
 import com.sun.xml.internal.bind.v2.TODO;
 import edu.byu.cs.autism.CommunicationQuiz.FamilyHint;
 import edu.byu.cs.autism.CommunicationQuiz.Quiz;
-import edu.byu.cs.autism.Time_stamp.Game;
-import edu.byu.cs.autism.Time_stamp.IncermentPlayTime;
-import edu.byu.cs.autism.Time_stamp.PlayTimeRecord;
-import edu.byu.cs.autism.Time_stamp.SaveData;
+import edu.byu.cs.autism.Time_stamp.*;
 import edu.byu.cs.autism.friend.FriendMiniGameHistory;
 import edu.byu.cs.autism.minigame.Maze;
 import org.bukkit.Bukkit;
@@ -22,7 +19,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -80,13 +79,38 @@ public class Autism extends JavaPlugin implements Listener {
         Player player = e.getEntity();
         String p = player.getName();
 //        PlayTimeRecord.Leave(p);
-        getServer().dispatchCommand(player,  "spawn");
-        
+        //getServer().dispatchCommand(player,  "spawn");
+        System.out.println("DIE");
+        //Note: Need to set respawn world on ScenicView server
     }
+
+    @EventHandler
+    public void onRespawn (PlayerRespawnEvent e){
+        Player player = e.getPlayer();
+        String p = player.getName();
+//        PlayTimeRecord.Leave(p);
+        //getServer().dispatchCommand(player,  "spawn");
+        System.out.println("LIVE");
+
+    }
+
+
     @EventHandler
     public void onLogout (PlayerQuitEvent e){
         Player player = e.getPlayer();
-        getServer().dispatchCommand(player,  "spawn");
+        if(Register.users.containsKey(player.getName())){
+            getServer().dispatchCommand(player,  "spawn");
+            Register.users.remove(player.getName());
+        }
+
+        System.out.println("LOGOUT");
+    }
+
+    @EventHandler
+    public void onLogon (PlayerJoinEvent e){
+        Player player = e.getPlayer();
+        getServer().dispatchCommand(player,  "tp 10 58 39");
+        System.out.println("LOGIN");
     }
 
     @EventHandler
@@ -127,6 +151,9 @@ public class Autism extends JavaPlugin implements Listener {
             if (!(sender instanceof Player)) {
                 return false;
             }
+            if(!Register.users.containsKey(sender.getName())){
+                return false;
+            }
             final Player player = (Player) sender;
             final Location originFacingNorth = Bukkit.getWorld(WorldNames.AUTISM).getSpawnLocation();
             originFacingNorth.setYaw(180.0f);
@@ -138,17 +165,14 @@ public class Autism extends JavaPlugin implements Listener {
             PlayTimeRecord.Leave(sender.getName());
 
             return true;
-        }
-        else if("count".equalsIgnoreCase(command.getName())){
+        } else if("count".equalsIgnoreCase(command.getName())){
             PlayTimeRecord.handleCommand(this, sender, command, label, args);
             return true;
-        }
-        else if ("quiz".equalsIgnoreCase(command.getName())){
+        } else if ("quiz".equalsIgnoreCase(command.getName())){
 //            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),  "say trigger quiz");
             Quiz.handleCommand(sender, command, label, args);
             return true;
-        }
-        else if ("maze".equalsIgnoreCase(command.getName())) {
+        } else if ("maze".equalsIgnoreCase(command.getName())) {
             Maze.handleCommand(sender, command, label, args);
             return true;
         } else if ("prompt".equalsIgnoreCase(command.getName())) {
@@ -174,7 +198,17 @@ public class Autism extends JavaPlugin implements Listener {
         }  else if ("testConversations".equalsIgnoreCase(command.getName())){
 
             Conversation.handleCommand("testConversations");
+        } else if ("tellServer".equalsIgnoreCase(command.getName())){
+
+            for(String arg : args){
+                System.out.print(args[0]);
+            }
+            System.out.println();
+
+        }  else if ("register".equalsIgnoreCase(command.getName())){
+            Register.handleCommand(this, sender, command, label, args);
         }
+
 
         String string = "horse";
 
